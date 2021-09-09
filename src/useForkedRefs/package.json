@@ -12,6 +12,7 @@
     "url": "git@github.com:mimshins/utilityjs.git",
     "directory": "src/useForkedRefs"
   },
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/src/useForkedRefs",
   "peerDependencies": {
     "react": ">=16.8"
   },
