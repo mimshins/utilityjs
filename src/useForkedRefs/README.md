@@ -14,7 +14,7 @@ A React hook for forking/merging multiple refs into a single one.
 [![types](https://img.shields.io/npm/types/@utilityjs/use-forked-refs?color=212121&style=for-the-badge)](https://www.npmjs.com/package/@utilityjs/use-forked-refs)
 
 ```bash
-npm i @utilityjs/use-forked-refs
+npm i @utilityjs/use-forked-refs | yarn add @utilityjs/use-forked-refs
 ```
 
 </div>
