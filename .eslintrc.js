@@ -1,23 +1,14 @@
-const baseExtends = ["eslint:recommended"];
-
-const jsExtends = [
-  "plugin:react/recommended",
-  "plugin:react-hooks/recommended",
-  "plugin:import/recommended",
-  "plugin:import/typescript",
-  "prettier"
-];
-
-const defaultExtends = baseExtends.concat(jsExtends);
-
-const tsExtends = baseExtends
-  .concat("plugin:@typescript-eslint/recommended")
-  .concat(jsExtends);
-
 const peerDeps = Object.keys(require("./package.json").peerDependencies);
 
 module.exports = {
-  extends: defaultExtends,
+  extends: [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "prettier"
+  ],
   env: {
     browser: true,
     es6: true,
@@ -50,7 +41,10 @@ module.exports = {
   overrides: [
     {
       files: ["*.ts", "*.tsx", "*.d.ts"],
-      extends: tsExtends,
+      extends: [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+      ],
       parserOptions: {
         sourceType: "module",
         project: ["./tsconfig.json"]
@@ -62,10 +56,7 @@ module.exports = {
     "import/resolver": {
       alias: {
         map: [
-          [
-            "@utilityjs/use-get-latest-value",
-            "./src/useGetLatestValue/useGetLatestValue.ts"
-          ],
+          ["@utilityjs/use-get-latest", "./src/useGetLatest/useGetLatest.ts"],
           [
             "@utilityjs/use-previous-value",
             "./src/usePreviousValue/usePreviousValue.ts"
