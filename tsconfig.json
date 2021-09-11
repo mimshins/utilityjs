@@ -20,8 +20,8 @@
     "allowJs": true,
     "types": ["node", "react"],
     "paths": {
-      "@utilityjs/use-get-latest-value": ["./src/useGetLatestValue"],
-      "@utilityjs/use-get-latest-value/*": ["./src/useGetLatestValue/*"],
+      "@utilityjs/use-get-latest": ["./src/useGetLatest"],
+      "@utilityjs/use-get-latest/*": ["./src/useGetLatest/*"],
       "@utilityjs/use-previous-value": ["./src/usePreviousValue"],
       "@utilityjs/use-previous-value/*": ["./src/usePreviousValue/*"]
     }
