@@ -1,0 +1,28 @@
+{
+  "name": "@utilityjs/use-is-mounted",
+  "version": "1.0.0",
+  "description": "A React hook that returns `true` if the component is mounted.",
+  "sideEffects": false,
+  "module": "./esm/index.js",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mimshins/utilityjs.git",
+    "directory": "src/useIsMounted"
+  },
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/src/useIsMounted",
+  "peerDependencies": {
+    "react": ">=16.8"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "react",
+    "react hook",
+    "mounted",
+    "is mounted",
+    "use is mounted"
+  ]
+}
