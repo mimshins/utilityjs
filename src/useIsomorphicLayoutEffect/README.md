@@ -23,8 +23,8 @@ npm i @utilityjs/use-isomorphic-layout-effect | yarn add @utilityjs/use-isomorph
 
 ## API
 
-### `useIsomorphicLayoutEffect()`
+### `useIsomorphicLayoutEffect(effect, deps?)`
 
 ```ts
-declare const useIsomorphicLayoutEffect: () => (() => boolean);
+declare const useIsomorphicLayoutEffect: typeof React.useLayoutEffect;
 ```
