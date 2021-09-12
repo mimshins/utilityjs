@@ -17,12 +17,13 @@
   ],
   "scripts": {
     "clear": "rimraf dist",
-    "build:npm": "node ./scripts/build-npm-modules.js",
+    "build:npm:all": "node ./scripts/build-npm-modules.js",
+    "build:npm:select": "node ./scripts/build-npm-module.js",
     "build:ts:esm": "tsc -p tsconfig.json",
     "build:ts:cjs": "tsc -p tsconfig.cjs.json",
     "build:ts": "npm-run-all build:ts:esm build:ts:cjs",
     "prebuild:ts": "npm run clear",
-    "build": "npm-run-all build:ts build:npm"
+    "build": "npm-run-all build:ts build:npm:all"
   },
   "peerDependencies": {
     "react": ">=16.8"
