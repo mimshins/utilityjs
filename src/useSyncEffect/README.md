@@ -56,7 +56,7 @@ const MyComponent = (props, ref) => {
 declare const useSyncEffect = (
   effectCallback: React.EffectCallback,
   dependencyList: React.DependencyList
-): void;
+) => void;
 ```
 
 #### `effectCallback`
