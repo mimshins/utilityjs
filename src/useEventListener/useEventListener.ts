@@ -72,7 +72,12 @@ const isOptionParamSupported = (): boolean => {
 
 const useEventListener: UseEventListener = (
   config: {
-    target: HTMLElement | Window | Document | null;
+    target:
+      | React.RefObject<HTMLElement>
+      | HTMLElement
+      | Window
+      | Document
+      | null;
     eventType: string;
     handler: unknown;
     options?: Options;
@@ -88,6 +93,8 @@ const useEventListener: UseEventListener = (
     const _handler_ = getHandler();
     const _options_ = getOptions();
 
+    const element = target && "current" in target ? target.current : target;
+
     const listener = (event: Event) =>
       (_handler_ as (ev: Event) => void)(event);
 
@@ -98,13 +105,13 @@ const useEventListener: UseEventListener = (
       else thirdParam = undefined;
     }
 
-    if (target != null && shouldAttach) {
-      target.addEventListener(eventType, listener, thirdParam);
+    if (element != null && shouldAttach) {
+      element.addEventListener(eventType, listener, thirdParam);
     }
 
     return () => {
-      if (target != null) {
-        target.removeEventListener(eventType, listener, thirdParam);
+      if (element != null) {
+        element.removeEventListener(eventType, listener, thirdParam);
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
