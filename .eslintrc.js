@@ -58,6 +58,10 @@ module.exports = {
         map: [
           ["@utilityjs/use-get-latest", "./src/useGetLatest/useGetLatest.ts"],
           [
+            "@utilityjs/use-event-listener",
+            "./src/useEventListener/useEventListener.ts"
+          ],
+          [
             "@utilityjs/use-previous-value",
             "./src/usePreviousValue/usePreviousValue.ts"
           ]

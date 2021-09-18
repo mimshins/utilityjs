@@ -23,7 +23,9 @@
       "@utilityjs/use-get-latest": ["./src/useGetLatest"],
       "@utilityjs/use-get-latest/*": ["./src/useGetLatest/*"],
       "@utilityjs/use-previous-value": ["./src/usePreviousValue"],
-      "@utilityjs/use-previous-value/*": ["./src/usePreviousValue/*"]
+      "@utilityjs/use-previous-value/*": ["./src/usePreviousValue/*"],
+      "@utilityjs/use-event-listener": ["./src/useEventListener"],
+      "@utilityjs/use-event-listener/*": ["./src/useEventListener/*"]
     }
   },
   "include": ["src"],
