@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-on-change",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React hook that invokes a callback anytime a value changes.",
   "sideEffects": false,
   "module": "./esm/index.js",
