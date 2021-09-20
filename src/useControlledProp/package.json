@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-controlled-prop",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React hook that handles controllable props.",
   "sideEffects": false,
   "module": "./esm/index.js",

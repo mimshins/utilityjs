@@ -54,7 +54,7 @@ const MyComponent = (props, ref) => {
 
 ## API
 
-### `useControlledProp(...refs)`
+### `useControlledProp(controlledValue, defaultValue)`
 
 ```ts
 declare const useControlledProp: <T>(

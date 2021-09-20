@@ -46,7 +46,7 @@ const MyComponent = (props) => {
 
 ## API
 
-### `useOnOutsideClick(target, callback, extendCondition)`
+### `useOnOutsideClick(target, callback, extendCondition?)`
 
 ```ts
 declare const useOnOutsideClick: <T extends HTMLElement = HTMLElement>(

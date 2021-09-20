@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-event-listener",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React hook that handles binding/unbinding event listeners in a smart way.",
   "sideEffects": false,
   "module": "./esm/index.js",

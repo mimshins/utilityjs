@@ -45,7 +45,7 @@ useEventListener({
 
 ## API
 
-### `useEventListener(effectCallback, dependencyList)`
+### `useEventListener(config, shouldAttach?)`
 
 ```ts
 type UseEventListener = {
