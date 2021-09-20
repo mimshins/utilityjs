@@ -50,7 +50,7 @@ const MyComponent = (props, ref) => {
 
 ## API
 
-### `useSyncEffect(effectCallback, dependencyList)`
+### `useSyncEffect(effectCallback, dependencyList?)`
 
 ```ts
 declare const useSyncEffect = (

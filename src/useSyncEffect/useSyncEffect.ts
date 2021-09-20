@@ -2,7 +2,7 @@ import * as React from "react";
 
 const useSyncEffect = (
   effectCallback: React.EffectCallback,
-  dependencyList: React.DependencyList
+  dependencyList?: React.DependencyList
 ): void => {
   const key = React.useRef({});
   const cleanupRef = React.useRef<ReturnType<typeof effectCallback>>();

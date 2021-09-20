@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-sync-effect",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React hook that is similar to the `React.useEffect` hook, except it's synchronous and will be called on server as well.",
   "sideEffects": false,
   "module": "./esm/index.js",
