@@ -1,0 +1,37 @@
+{
+  "name": "@utilityjs/use-resize-sensor",
+  "version": "1.0.0",
+  "description": "A React hook that handles element resizes using native `ResizeObserver`.",
+  "sideEffects": false,
+  "module": "./esm/index.js",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mimshins/utilityjs.git",
+    "directory": "src/useResizeSensor"
+  },
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/src/useResizeSensor",
+  "peerDependencies": {
+    "react": ">=16.8"
+  },
+  "dependencies": {
+    "lodash.debounce": "^4.0.8",
+    "lodash.throttle": "^4.1.1",
+    "@types/lodash.debounce": "^4.0.6",
+    "@types/lodash.throttle": "^4.1.6"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "react",
+    "react hook",
+    "resize observer",
+    "use resize observer",
+    "use resize sensor",
+    "resize sensor",
+    "size sensor",
+    "size observer"
+  ]
+}
