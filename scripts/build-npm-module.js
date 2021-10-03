@@ -1,7 +1,9 @@
 const path = require("path");
 const fse = require("fs-extra");
 
-const args = process.argv.slice(2);
+const moduleType = process.argv[2];
+
+const args = process.argv.slice(3);
 
 const packagePath = process.cwd();
 
@@ -13,9 +15,9 @@ const cjsPath = path.join(buildPath, "cjs");
 const npmPath = path.join(buildPath, "npm");
 
 const modules = args
-  .map(arg => path.join(srcPath, arg))
+  .map(arg => path.join(srcPath, moduleType, arg))
   .filter(path => fse.existsSync(path))
-  .map(path => [path, path.replace(`${srcPath}/`, "")]);
+  .map(path => [path, path.replace(`${srcPath}/${moduleType}/`, "")]);
 
 const ensureOutDirs = async () => {
   await fse.ensureDir(npmPath);

@@ -56,14 +56,17 @@ module.exports = {
     "import/resolver": {
       alias: {
         map: [
-          ["@utilityjs/use-get-latest", "./src/useGetLatest/useGetLatest.ts"],
+          [
+            "@utilityjs/use-get-latest",
+            "./src/hook/useGetLatest/useGetLatest.ts"
+          ],
           [
             "@utilityjs/use-event-listener",
-            "./src/useEventListener/useEventListener.ts"
+            "./src/hook/useEventListener/useEventListener.ts"
           ],
           [
             "@utilityjs/use-previous-value",
-            "./src/usePreviousValue/usePreviousValue.ts"
+            "./src/hook/usePreviousValue/usePreviousValue.ts"
           ]
         ]
       }
