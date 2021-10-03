@@ -1,0 +1,29 @@
+{
+  "name": "@utilityjs/use-sync-effect",
+  "version": "1.0.2",
+  "description": "A React hook that is similar to the `React.useEffect` hook, except it's synchronous and will be called on server as well.",
+  "sideEffects": false,
+  "module": "./esm/index.js",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mimshins/utilityjs.git",
+    "directory": "src/useSyncEffect"
+  },
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/src/hook/useSyncEffect",
+  "peerDependencies": {
+    "react": ">=16.8"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "react",
+    "react hook",
+    "sync effect",
+    "side effect",
+    "sync side effect",
+    "use sync side effect"
+  ]
+}
