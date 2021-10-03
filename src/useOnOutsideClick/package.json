@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-on-outside-click",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React hook that invokes a callback when user clicks outside of the target element.",
   "sideEffects": false,
   "module": "./esm/index.js",
