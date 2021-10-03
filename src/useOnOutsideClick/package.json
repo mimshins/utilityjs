@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@utilityjs/use-get-latest": "^1.0.0",
-    "@utilityjs/use-event-listener": "^1.0.2"
+    "@utilityjs/use-event-listener": "^1.0.3"
   },
   "keywords": [
     "javascript",

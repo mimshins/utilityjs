@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-event-listener",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A React hook that handles binding/unbinding event listeners in a smart way.",
   "sideEffects": false,
   "module": "./esm/index.js",
@@ -15,6 +15,9 @@
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/src/useEventListener",
   "peerDependencies": {
     "react": ">=16.8"
+  },
+  "dependencies": {
+    "@utilityjs/use-get-latest": "^1.0.0"
   },
   "keywords": [
     "javascript",
