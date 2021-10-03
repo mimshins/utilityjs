@@ -10,8 +10,8 @@ const packagePath = process.cwd();
 const buildPath = path.join(packagePath, "dist");
 const srcPath = path.join(packagePath, "src");
 
-const esmPath = path.join(buildPath, "esm");
-const cjsPath = path.join(buildPath, "cjs");
+const esmPath = path.join(buildPath, "esm", moduleType);
+const cjsPath = path.join(buildPath, "cjs", moduleType);
 const npmPath = path.join(buildPath, "npm");
 
 const modules = args
