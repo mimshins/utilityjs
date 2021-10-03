@@ -25,7 +25,9 @@
       "@utilityjs/use-previous-value": ["./src/hook/usePreviousValue"],
       "@utilityjs/use-previous-value/*": ["./src/hook/usePreviousValue/*"],
       "@utilityjs/use-event-listener": ["./src/hook/useEventListener"],
-      "@utilityjs/use-event-listener/*": ["./src/hook/useEventListener/*"]
+      "@utilityjs/use-event-listener/*": ["./src/hook/useEventListener/*"],
+      "@utilityjs/comparator": ["./src/data-structure/Comparator"],
+      "@utilityjs/comparator/*": ["./src/data-structure/Comparator/*"]
     }
   },
   "include": ["src"],

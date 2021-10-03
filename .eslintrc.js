@@ -67,6 +67,10 @@ module.exports = {
           [
             "@utilityjs/use-previous-value",
             "./src/hook/usePreviousValue/usePreviousValue.ts"
+          ],
+          [
+            "@utilityjs/comparator",
+            "./src/data-structure/Comparator/Comparator.ts"
           ]
         ]
       }
