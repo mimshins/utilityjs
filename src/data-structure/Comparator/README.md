@@ -6,7 +6,7 @@
 
 <div align="center">
 
-An utility class that compares its comparable arguments.
+A utility class that compares its comparable arguments.
 
 [![license](https://img.shields.io/github/license/mimshins/utilityjs?color=212121&style=for-the-badge)](https://github.com/mimshins/utilityjs/blob/main/LICENSE)
 [![npm latest package](https://img.shields.io/npm/v/@utilityjs/comparator?color=212121&style=for-the-badge)](https://www.npmjs.com/package/@utilityjs/comparator)

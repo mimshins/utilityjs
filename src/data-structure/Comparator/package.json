@@ -1,7 +1,7 @@
 {
   "name": "@utilityjs/comparator",
-  "version": "1.0.0",
-  "description": "An utility class that compares its comparable arguments.",
+  "version": "1.0.1",
+  "description": "A utility class that compares its comparable arguments.",
   "sideEffects": false,
   "module": "./esm/index.js",
   "main": "./index.js",
