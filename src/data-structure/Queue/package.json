@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/queue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An implementation of Queue data structure.",
   "sideEffects": false,
   "module": "./esm/index.js",
@@ -13,7 +13,7 @@
     "directory": "src/data-structure/Queue"
   },
   "dependencies": {
-    "@utilityjs/linked-list": "^1.0.0"
+    "@utilityjs/linked-list": "^1.0.1"
   },
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/src/data-structure/Queue",
   "keywords": [

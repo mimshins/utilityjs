@@ -34,7 +34,7 @@ const compareListItems = (a: Item, b: Item) => {
   return a.value < b.value ? -1 : 1;
 };
 
-const list = new LinkedList(compareListItems);
+const list = new LinkedList<Item>(compareListItems);
 
 list.append({ type: "b", value: 1 }); // b -> null
 list.prepend({ type: "a", value: 0 }); // a -> b -> null
@@ -50,23 +50,29 @@ list.fromArray([
 ### `LinkedList(compareFunction?)`
 
 ```ts
-declare class LinkedList<T> {
+export declare class Node<T> {
+  constructor(value: T, next?: Node<T> | null);
+  getValue(): T;
+  setValue(value: T): void;
+  getNext(): Node<T> | null;
+  setNext(next: Node<T> | null): void;
+  hasNext(): boolean;
+}
+
+export default class LinkedList<T> {
   constructor(compareFunction?: CompareFunction<T>);
-  getHead(): LinkedListNode<T> | null;
-  getTail(): LinkedListNode<T> | null;
+  getHead(): Node<T> | null;
+  getTail(): Node<T> | null;
   isEmpty(): boolean;
   getLength(): number;
   append(value: T): void;
   prepend(value: T): void;
-  traverse(
-    callback: (node: LinkedListNode<T>, index: number) => void | boolean
-  ): void;
+  traverse(callback: (node: Node<T>, index: number) => void | boolean): void;
   deleteHead(): void;
   deleteTail(): void;
   delete(value: T): void;
   reverse(): void;
   fromArray(array: T[]): void;
   toArray(): T[];
-  toString(): string;
 }
 ```

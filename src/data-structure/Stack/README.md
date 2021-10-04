@@ -24,7 +24,7 @@ npm i @utilityjs/stack | yarn add @utilityjs/stack
 ### `Stack()`
 
 ```ts
-declare default class Stack<T> {
+export default class Stack<T> {
   constructor();
   isEmpty(): boolean;
   push(value: T): void;

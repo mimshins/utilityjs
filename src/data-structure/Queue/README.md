@@ -24,7 +24,7 @@ npm i @utilityjs/queue | yarn add @utilityjs/queue
 ### `Queue()`
 
 ```ts
-declare default class Queue<T> {
+export default class Queue<T> {
   constructor();
   isEmpty(): boolean;
   enqueue(value: T): void;

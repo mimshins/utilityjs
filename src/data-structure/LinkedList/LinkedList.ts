@@ -1,11 +1,40 @@
 import Comparator, { CompareFunction } from "@utilityjs/comparator";
-import LinkedListNode from "./Node";
+
+export class Node<T> {
+  private value: T;
+  private next: Node<T> | null;
+
+  constructor(value: T, next: Node<T> | null = null) {
+    this.value = value;
+    this.next = next;
+  }
+
+  getValue(): T {
+    return this.value;
+  }
+
+  setValue(value: T): void {
+    this.value = value;
+  }
+
+  getNext(): Node<T> | null {
+    return this.next;
+  }
+
+  setNext(next: Node<T> | null): void {
+    this.next = next;
+  }
+
+  hasNext(): boolean {
+    return !!this.next;
+  }
+}
 
 export default class LinkedList<T> {
   private comparator: Comparator<T>;
 
-  private head: LinkedListNode<T> | null;
-  private tail: LinkedListNode<T> | null;
+  private head: Node<T> | null;
+  private tail: Node<T> | null;
 
   private length = 0;
 
@@ -15,11 +44,11 @@ export default class LinkedList<T> {
     this.comparator = new Comparator(compareFunction);
   }
 
-  getHead(): LinkedListNode<T> | null {
+  getHead(): Node<T> | null {
     return this.head;
   }
 
-  getTail(): LinkedListNode<T> | null {
+  getTail(): Node<T> | null {
     return this.tail;
   }
 
@@ -32,7 +61,7 @@ export default class LinkedList<T> {
   }
 
   append(value: T): void {
-    const node = new LinkedListNode(value);
+    const node = new Node(value);
 
     if (this.isEmpty()) {
       this.head = node;
@@ -47,7 +76,7 @@ export default class LinkedList<T> {
   }
 
   prepend(value: T): void {
-    const node = new LinkedListNode(value);
+    const node = new Node(value);
 
     if (this.isEmpty()) this.tail = node;
 
@@ -55,12 +84,10 @@ export default class LinkedList<T> {
     this.length++;
   }
 
-  traverse(
-    callback: (node: LinkedListNode<T>, index: number) => void | boolean
-  ): void {
+  traverse(callback: (node: Node<T>, index: number) => void | boolean): void {
     if (!this.head) return;
 
-    let node: LinkedListNode<T> | null = this.head;
+    let node: Node<T> | null = this.head;
     let index = 0;
 
     while (node) {
@@ -108,7 +135,7 @@ export default class LinkedList<T> {
       return this.deleteHead();
     }
 
-    let lastNode: LinkedListNode<T> | null = null;
+    let lastNode: Node<T> | null = null;
     let shouldDownsize = false;
 
     this.traverse(node => {
@@ -161,16 +188,5 @@ export default class LinkedList<T> {
     });
 
     return array;
-  }
-
-  toString(): string {
-    const str = "";
-
-    this.traverse((node, index) => {
-      if (index !== 0) str.concat(" | ");
-      str.concat(node.toString());
-    });
-
-    return str;
   }
 }
