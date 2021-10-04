@@ -27,7 +27,9 @@
       "@utilityjs/use-event-listener": ["./src/hook/useEventListener"],
       "@utilityjs/use-event-listener/*": ["./src/hook/useEventListener/*"],
       "@utilityjs/comparator": ["./src/data-structure/Comparator"],
-      "@utilityjs/comparator/*": ["./src/data-structure/Comparator/*"]
+      "@utilityjs/comparator/*": ["./src/data-structure/Comparator/*"],
+      "@utilityjs/linked-list": ["./src/data-structure/LinkedList"],
+      "@utilityjs/linked-list/*": ["./src/data-structure/LinkedList/*"]
     }
   },
   "include": ["src"],

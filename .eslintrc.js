@@ -71,6 +71,10 @@ module.exports = {
           [
             "@utilityjs/comparator",
             "./src/data-structure/Comparator/Comparator.ts"
+          ],
+          [
+            "@utilityjs/linked-list",
+            "./src/data-structure/LinkedList/LinkedList.ts"
           ]
         ]
       }
