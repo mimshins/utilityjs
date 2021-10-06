@@ -70,6 +70,14 @@ export default class Graph<T> {
   findEdge(vA: Vertext<T>, vB: Vertext<T>): Edge<T> | null;
   deleteEdge(edge: Edge<T>): void;
   getAdjacencyMatrix(): number[][];
+  breadthFirstSearch(
+    startVertex: Vertex<T>,
+    callbacks?: SearchCallbacks<T>
+  ): void;
+  depthFirstSearch(
+    startVertex: Vertex<T>,
+    callbacks?: SearchCallbacks<T>
+  ): void;
 }
 
 ```
