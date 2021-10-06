@@ -1,6 +1,6 @@
 import LinkedList from "@utilityjs/linked-list";
 
-export class Vertext<T> {
+export class Vertex<T> {
   private _value: T;
 
   private _key: string | null;
@@ -9,7 +9,7 @@ export class Vertext<T> {
 
   constructor(value: T, key: string | null = null) {
     if (typeof value === "undefined")
-      throw new Error("The graph vertext must have a valid value.");
+      throw new Error("The graph vertex must have a valid value.");
 
     this._key = key;
     this._value = value;
@@ -45,10 +45,10 @@ export class Vertext<T> {
   }
 
   public getDegree(): number {
-    return this._edges.getLength();
+    return this._edges.getLength() + (this.hasSelfLoop() ? 1 : 0);
   }
 
-  public getNeighborEdge(vertext: Vertext<T>): Edge<T> | null {
+  public getNeighborEdge(vertex: Vertex<T>): Edge<T> | null {
     let result: Edge<T> | null = null;
 
     this._edges.traverse(node => {
@@ -58,9 +58,9 @@ export class Vertext<T> {
       const thisIsVB = edge.getVB().getKey() === this.getKey();
 
       if (
-        (thisIsVA && edge.getVB().getKey() === vertext.getKey()) ||
-        (thisIsVB && edge.getVA().getKey() === vertext.getKey()) ||
-        (thisIsVB && thisIsVA && this.getKey() === vertext.getKey())
+        (thisIsVA && edge.getVB().getKey() === vertex.getKey()) ||
+        (thisIsVB && edge.getVA().getKey() === vertex.getKey()) ||
+        (thisIsVB && thisIsVA && this.getKey() === vertex.getKey())
       ) {
         result = edge;
         return true;
@@ -85,7 +85,26 @@ export class Vertext<T> {
     return flag;
   }
 
-  public hasNeighbor(vertext: Vertext<T>): boolean {
+  public getSelfLoop(): Edge<T> | null {
+    let selfEdge = null;
+
+    this._edges.traverse(node => {
+      const edge = node.getValue();
+
+      if (edge.isSelfLoop()) {
+        selfEdge = edge;
+        return true;
+      }
+    });
+
+    return selfEdge;
+  }
+
+  public hasSelfLoop(): boolean {
+    return !!this.getSelfLoop();
+  }
+
+  public hasNeighbor(vertex: Vertex<T>): boolean {
     let flag = false;
 
     this._edges.traverse(node => {
@@ -95,9 +114,9 @@ export class Vertext<T> {
       const thisIsVB = edge.getVB().getKey() === this.getKey();
 
       if (
-        (thisIsVA && edge.getVB().getKey() === vertext.getKey()) ||
-        (thisIsVB && edge.getVA().getKey() === vertext.getKey()) ||
-        (thisIsVB && thisIsVA && this.getKey() === vertext.getKey())
+        (thisIsVA && edge.getVB().getKey() === vertex.getKey()) ||
+        (thisIsVB && edge.getVA().getKey() === vertex.getKey()) ||
+        (thisIsVB && thisIsVA && this.getKey() === vertex.getKey())
       ) {
         flag = true;
         return true;
@@ -107,8 +126,8 @@ export class Vertext<T> {
     return flag;
   }
 
-  public getNeighbors(): Vertext<T>[] {
-    const neighbors: Vertext<T>[] = [];
+  public getNeighbors(): Vertex<T>[] {
+    const neighbors: Vertex<T>[] = [];
 
     this._edges.traverse(node => {
       const edge = node.getValue();
@@ -130,24 +149,24 @@ export class Vertext<T> {
 }
 
 export class Edge<T> {
-  private _vA: Vertext<T>;
-  private _vB: Vertext<T>;
+  private _vA: Vertex<T>;
+  private _vB: Vertex<T>;
 
   private _key: string | null;
 
   private _weight: number;
 
   constructor(
-    vA: Vertext<T>,
-    vB: Vertext<T>,
+    vA: Vertex<T>,
+    vB: Vertex<T>,
     weight = 0,
     key: string | null = null
   ) {
     if (typeof vA === "undefined")
-      throw new Error("The graph edge must have a valid start vertext.");
+      throw new Error("The graph edge must have a valid start vertex.");
 
     if (typeof vB === "undefined")
-      throw new Error("The graph edge must have a valid end vertext.");
+      throw new Error("The graph edge must have a valid end vertex.");
 
     this._vA = vA;
     this._vB = vB;
@@ -157,20 +176,24 @@ export class Edge<T> {
     this._weight = weight;
   }
 
-  public setVA(vA: Vertext<T>): void {
+  public setVA(vA: Vertex<T>): void {
     this._vA = vA;
   }
 
-  public setVB(vB: Vertext<T>): void {
+  public setVB(vB: Vertex<T>): void {
     this._vB = vB;
   }
 
-  public getVA(): Vertext<T> {
+  public getVA(): Vertex<T> {
     return this._vA;
   }
 
-  public getVB(): Vertext<T> {
+  public getVB(): Vertex<T> {
     return this._vB;
+  }
+
+  public isSelfLoop(): boolean {
+    return this._vA.getKey() === this._vB.getKey();
   }
 
   public setWeight(weight: number): void {
@@ -196,7 +219,7 @@ export class Edge<T> {
 export default class Graph<T> {
   private _isDirected: boolean;
 
-  private _vertices: Record<string, Vertext<T>>;
+  private _vertices: Record<string, Vertex<T>>;
   private _edges: Record<string, Edge<T>>;
 
   constructor(isDirected = false) {
@@ -210,15 +233,15 @@ export default class Graph<T> {
     return this._isDirected;
   }
 
-  public getVertext(key: string): Vertext<T> | null {
+  public getVertex(key: string): Vertex<T> | null {
     return this._vertices[key] || null;
   }
 
-  public addVertext(vertext: Vertext<T>): void {
-    this._vertices[vertext.getKey()] = vertext;
+  public addVertex(vertex: Vertex<T>): void {
+    this._vertices[vertex.getKey()] = vertex;
   }
 
-  public getVertices(): Vertext<T>[] {
+  public getVertices(): Vertex<T>[] {
     return Object.keys(this._vertices).map(key => this._vertices[key]);
   }
 
@@ -235,7 +258,7 @@ export default class Graph<T> {
 
   public getVerticesIndexMap(): Record<string, number> {
     return this.getVertices().reduce<Record<string, number>>(
-      (indices, vertext, index) => ({ ...indices, [vertext.getKey()]: index }),
+      (indices, vertex, index) => ({ ...indices, [vertex.getKey()]: index }),
       {}
     );
   }
@@ -259,10 +282,10 @@ export default class Graph<T> {
     const _edgeVB = edge.getVB();
 
     const vA = (() => {
-      const _vA = this.getVertext(_edgeVA.getKey());
+      const _vA = this.getVertex(_edgeVA.getKey());
 
       if (!_vA) {
-        this.addVertext(_edgeVA);
+        this.addVertex(_edgeVA);
         return _edgeVA;
       }
 
@@ -270,10 +293,10 @@ export default class Graph<T> {
     })();
 
     const vB = (() => {
-      const _vB = this.getVertext(_edgeVB.getKey());
+      const _vB = this.getVertex(_edgeVB.getKey());
 
       if (!_vB) {
-        this.addVertext(_edgeVB);
+        this.addVertex(_edgeVB);
         return _edgeVB;
       }
 
@@ -283,17 +306,17 @@ export default class Graph<T> {
     this._edges[edge.getKey()] = edge;
 
     vA.addEdge(edge);
-    if (!this._isDirected) vB.addEdge(edge);
+    if (!edge.isSelfLoop() && !this._isDirected) vB.addEdge(edge);
   }
 
   public findEdge(edge: Edge<T>): Edge<T> | null;
-  public findEdge(vA: Vertext<T>, vB: Vertext<T>): Edge<T> | null;
+  public findEdge(vA: Vertex<T>, vB: Vertex<T>): Edge<T> | null;
   public findEdge(
-    vAOrEdge: Vertext<T> | Edge<T>,
-    vB?: Vertext<T>
+    vAOrEdge: Vertex<T> | Edge<T>,
+    vB?: Vertex<T>
   ): Edge<T> | null {
-    let _vA: Vertext<T>;
-    let _vB: Vertext<T>;
+    let _vA: Vertex<T>;
+    let _vB: Vertex<T>;
 
     if (vAOrEdge instanceof Edge) {
       _vA = vAOrEdge.getVA();
@@ -301,14 +324,13 @@ export default class Graph<T> {
     } else if (typeof vB !== "undefined") {
       _vA = vAOrEdge;
       _vB = vB;
-    } else
-      throw new Error("The second argument must be a valid graph vertext.");
+    } else throw new Error("The second argument must be a valid graph vertex.");
 
-    const startVertext = this.getVertext(_vA.getKey());
+    const startVertex = this.getVertex(_vA.getKey());
 
-    if (!startVertext) return null;
+    if (!startVertex) return null;
 
-    return startVertext.getNeighborEdge(_vB);
+    return startVertex.getNeighborEdge(_vB);
   }
 
   public deleteEdge(edge: Edge<T>): void {
@@ -317,27 +339,35 @@ export default class Graph<T> {
     if (_edge) delete this._edges[edge.getKey()];
     else return;
 
-    const startVertext = this.getVertext(edge.getVA().getKey());
-    const endVertext = this.getVertext(edge.getVB().getKey());
+    const startVertex = this.getVertex(edge.getVA().getKey());
+    const endVertex = this.getVertex(edge.getVB().getKey());
 
-    startVertext?.deleteEdge(_edge);
-    endVertext?.deleteEdge(_edge);
+    startVertex?.deleteEdge(_edge);
+    endVertex?.deleteEdge(_edge);
   }
 
-  public getAdjacencyMatrix(): number[][] {
+  public getAdjacencyMatrix(unweighted = false): number[][] {
     const vertices = this.getVertices();
     const verticesIndexMap = this.getVerticesIndexMap();
 
     const matrix = Array<number[]>(vertices.length)
       .fill([])
-      .map(() => Array<number>(vertices.length).fill(Infinity));
+      .map(() =>
+        Array<number>(vertices.length).fill(unweighted ? 0 : Infinity)
+      );
 
-    vertices.forEach((vertext, vertextIndex) => {
-      vertext.getNeighbors().forEach(neighbor => {
+    vertices.forEach((vertex, vertexIndex) => {
+      vertex.getNeighbors().forEach(neighbor => {
         const neighborIndex = verticesIndexMap[neighbor.getKey()];
-        const edge = this.findEdge(vertext, neighbor) as Edge<T>;
 
-        matrix[vertextIndex][neighborIndex] = edge.getWeight();
+        const isSelfLoop = vertexIndex === neighborIndex;
+
+        if (unweighted)
+          matrix[vertexIndex][neighborIndex] += isSelfLoop ? 2 : 1;
+        else {
+          const edge = this.findEdge(vertex, neighbor) as Edge<T>;
+          matrix[vertexIndex][neighborIndex] = edge.getWeight();
+        }
       });
     });
 
