@@ -24,7 +24,17 @@ npm i @utilityjs/graph | yarn add @utilityjs/graph
 ### `Graph(isDirected?)`
 
 ```ts
-export declare class Vertext<T> {
+interface SearchCallbacks<T> {
+  onEnter: (previous: Vertex<T> | null, current: Vertex<T>) => void;
+  onLeave: (previous: Vertex<T> | null, current: Vertex<T>) => void;
+  shouldTraverse: (
+    previous: Vertex<T> | null,
+    current: Vertex<T>,
+    next: Vertex<T>
+  ) => boolean;
+}
+
+export declare class Vertex<T> {
   constructor(value: T, key?: string | null);
   getValue(): T;
   setValue(value: T): void;
@@ -33,43 +43,48 @@ export declare class Vertext<T> {
   getKey(): string;
   getEdges(): Edge<T>[];
   getDegree(): number;
-  getNeighborEdge(vertext: Vertext<T>): Edge<T> | null;
+  getNeighborEdge(vertex: Vertex<T>): Edge<T> | null;
   hasEdge(edge: Edge<T>): boolean;
-  hasNeighbor(vertext: Vertext<T>): boolean;
-  getNeighbors(): Vertext<T>[];
+  getSelfLoop(): Edge<T> | null;
+  hasSelfLoop(): boolean;
+  hasNeighbor(vertex: Vertex<T>): boolean;
+  getNeighbors(): Vertex<T>[];
   clearEdges(): void;
 }
+
 export declare class Edge<T> {
   constructor(
-    vA: Vertext<T>,
-    vB: Vertext<T>,
+    vA: Vertex<T>,
+    vB: Vertex<T>,
     weight?: number,
     key?: string | null
   );
-  setVA(vA: Vertext<T>): void;
-  setVB(vB: Vertext<T>): void;
-  getVA(): Vertext<T>;
-  getVB(): Vertext<T>;
+  setVA(vA: Vertex<T>): void;
+  setVB(vB: Vertex<T>): void;
+  getVA(): Vertex<T>;
+  getVB(): Vertex<T>;
+  isSelfLoop(): boolean;
   setWeight(weight: number): void;
   getWeight(): number;
   getKey(): string;
   reverse(): void;
 }
+
 export default class Graph<T> {
   constructor(isDirected?: boolean);
   isDirected(): boolean;
-  getVertext(key: string): Vertext<T> | null;
-  addVertext(vertext: Vertext<T>): void;
-  getVertices(): Vertext<T>[];
+  getVertex(key: string): Vertex<T> | null;
+  addVertex(vertex: Vertex<T>): void;
+  getVertices(): Vertex<T>[];
   getEdges(): Edge<T>[];
   getWeight(): number;
   getVerticesIndexMap(): Record<string, number>;
   reverse(): void;
   addEdge(edge: Edge<T>): void;
   findEdge(edge: Edge<T>): Edge<T> | null;
-  findEdge(vA: Vertext<T>, vB: Vertext<T>): Edge<T> | null;
+  findEdge(vA: Vertex<T>, vB: Vertex<T>): Edge<T> | null;
   deleteEdge(edge: Edge<T>): void;
-  getAdjacencyMatrix(): number[][];
+  getAdjacencyMatrix(unweighted?: boolean): number[][];
   breadthFirstSearch(
     startVertex: Vertex<T>,
     callbacks?: SearchCallbacks<T>
@@ -79,5 +94,4 @@ export default class Graph<T> {
     callbacks?: SearchCallbacks<T>
   ): void;
 }
-
 ```
