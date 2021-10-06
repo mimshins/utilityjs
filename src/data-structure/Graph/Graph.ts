@@ -1,5 +1,15 @@
 import LinkedList from "@utilityjs/linked-list";
 
+interface SearchCallbacks<T> {
+  onEnter: (previous: Vertex<T> | null, current: Vertex<T>) => void;
+  onLeave: (previous: Vertex<T> | null, current: Vertex<T>) => void;
+  shouldTraverse: (
+    previous: Vertex<T> | null,
+    current: Vertex<T>,
+    next: Vertex<T>
+  ) => boolean;
+}
+
 export class Vertex<T> {
   private _value: T;
 
@@ -216,6 +226,27 @@ export class Edge<T> {
   }
 }
 
+const initSearchCallbacks = <T>(
+  callbacks: Partial<SearchCallbacks<T>>
+): SearchCallbacks<T> => {
+  return {
+    onEnter: callbacks.onEnter || (() => void 0),
+    onLeave: callbacks.onLeave || (() => void 0),
+    shouldTraverse:
+      callbacks.shouldTraverse ||
+      (() => {
+        const seen: Record<string, boolean> = {};
+
+        return (_: Vertex<T> | null, __: Vertex<T>, next: Vertex<T>) => {
+          if (seen[next.getKey()]) return false;
+
+          seen[next.getKey()] = true;
+          return true;
+        };
+      })()
+  };
+};
+
 export default class Graph<T> {
   private _isDirected: boolean;
 
@@ -372,5 +403,53 @@ export default class Graph<T> {
     });
 
     return matrix;
+  }
+
+  public breadthFirstSearch(
+    startVertex: Vertex<T>,
+    callbacks?: SearchCallbacks<T>
+  ): void {
+    const cbs = initSearchCallbacks(callbacks || {});
+    const queue = new LinkedList<Vertex<T>>();
+
+    queue.append(startVertex);
+
+    let previous: Vertex<T> | null = null;
+
+    while (!queue.isEmpty()) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const current = queue.getHead()!.getValue();
+      queue.deleteHead();
+
+      cbs.onEnter(previous, current);
+
+      current.getNeighbors().forEach(next => {
+        if (cbs.shouldTraverse(previous, current, next)) queue.append(next);
+      });
+
+      cbs.onLeave(previous, current);
+
+      previous = current;
+    }
+  }
+
+  public depthFirstSearch(
+    startVertex: Vertex<T>,
+    callbacks?: SearchCallbacks<T>
+  ): void {
+    const cbs = initSearchCallbacks(callbacks || {});
+
+    const recursion = (current: Vertex<T>, previous: Vertex<T> | null) => {
+      cbs.onEnter(previous, current);
+
+      current.getNeighbors().forEach(next => {
+        if (cbs.shouldTraverse(previous, current, next))
+          recursion(next, current);
+      });
+
+      cbs.onLeave(previous, current);
+    };
+
+    recursion(startVertex, null);
   }
 }
