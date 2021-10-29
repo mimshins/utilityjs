@@ -4,10 +4,10 @@ const isEqual = <T>(v1: T, v2: T): boolean => {
   if (typeof v1 !== typeof v2) return false;
   if (typeof v1 === "object") {
     if (!Array.isArray(v1)) return false;
-    else if (v1.length !== (v2 as typeof v1).length) return false;
+    else if (v1.length !== (<typeof v1>v2).length) return false;
     else {
       for (let i = 0; i < v1.length; i++) {
-        if (v1[i] !== (v2 as typeof v1)[i]) return false;
+        if (v1[i] !== (<typeof v1>v2)[i]) return false;
       }
     }
   }
@@ -15,28 +15,35 @@ const isEqual = <T>(v1: T, v2: T): boolean => {
   return true;
 };
 
+const isUndef = <T>(value: T): boolean => typeof value === "undefined";
+
 const useControlledProp = <T>(
-  controlledValue: T,
-  defaultValue: T
+  controlledValueProp: T | undefined,
+  defaultValueProp: T | undefined,
+  fallbackValue: T
 ): [
-  value: Exclude<T, undefined>,
-  updater: (value: React.SetStateAction<NonNullable<T>>) => void,
+  value: T,
+  setUncontrolledValue: (value: React.SetStateAction<T>) => void,
   isControlled: boolean
 ] => {
-  const { current: isControlled } = React.useRef(controlledValue !== undefined);
-  const { current: _default_ } = React.useRef(defaultValue);
+  const { current: isControlled } = React.useRef(!isUndef(controlledValueProp));
+  const { current: defaultValue } = React.useRef(defaultValueProp);
 
-  const [uncontrolledValue, setUncontrolledValue] = React.useState(_default_);
-
-  const value = isControlled ? controlledValue : uncontrolledValue;
+  const { current: fallback } = React.useRef<T | undefined>(
+    isUndef(controlledValueProp)
+      ? isUndef(defaultValueProp)
+        ? fallbackValue
+        : defaultValueProp
+      : undefined
+  );
 
   if (process.env.NODE_ENV !== "production") {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     React.useEffect(() => {
       if (
         !isControlled &&
-        _default_ !== defaultValue &&
-        !isEqual(_default_, defaultValue)
+        defaultValue !== defaultValueProp &&
+        !isEqual(defaultValue, defaultValueProp)
       ) {
         // eslint-disable-next-line no-console
         console.error(
@@ -47,11 +54,11 @@ const useControlledProp = <T>(
         );
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [defaultValue]);
+    }, [defaultValueProp]);
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     React.useEffect(() => {
-      if (isControlled !== (controlledValue !== undefined)) {
+      if (isControlled !== !isUndef(controlledValueProp)) {
         // eslint-disable-next-line no-console
         console.error(
           [
@@ -60,30 +67,37 @@ const useControlledProp = <T>(
             }controlled state of a prop to be ${
               isControlled ? "un" : ""
             }controlled.`,
-            `Decide between using a controlled or uncontrolled prop ` +
+            "Decide between using a controlled or uncontrolled prop " +
               "for the lifetime of the component.",
-            "The nature of the prop state is determined during the first render, it's considered controlled if the state is not `undefined`."
+            "The nature of the prop's state is determined during the first render, it's considered controlled if the prop is not `undefined`."
           ].join("\n")
         );
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [controlledValue]);
+    }, [controlledValueProp]);
 
-    if (controlledValue === undefined && defaultValue === undefined) {
+    if (
+      isUndef(controlledValueProp) &&
+      isUndef(defaultValueProp) &&
+      isUndef(fallbackValue)
+    ) {
       // eslint-disable-next-line no-console
       console.error(
         [
-          `UtilityJS: Both \`controlledValue\` and \`defaultValue\` parameters of the prop are \`undefined\`!`,
-          `To suppress this warning use a valid \`controlledValue\` or \`defaultValue\`.`
+          "UtilityJS: The values you provide are `undefined`!",
+          "To suppress this warning use a valid non-undefined controlled, default or fallback value."
         ].join(" ")
       );
     }
   }
 
+  const [uncontrolledValue, setUncontrolledValue] = React.useState(fallback);
+  const value = isControlled ? <T>controlledValueProp : <T>uncontrolledValue;
+
   return [
-    value as Exclude<T, undefined>,
-    React.useCallback((newValue: React.SetStateAction<NonNullable<T>>) => {
-      if (!isControlled) setUncontrolledValue(newValue as NonNullable<T>);
+    value,
+    React.useCallback((newValue: React.SetStateAction<T>) => {
+      if (!isControlled) setUncontrolledValue(<T>newValue);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []),
     isControlled

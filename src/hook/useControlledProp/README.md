@@ -31,11 +31,15 @@ const MyComponent = (props, ref) => {
   const {
     onChange,
     value: valueProp,
-    defaultValue: defaultValueProp,
+    defaultValue: defaultValueProp, s
     ...otherProps
   } = props;
 
-  const [value, setValue] = useControlledProp(valueProp, defaultValueProp);
+  const [value, setUncontrolledValue] = useControlledProp(
+    valueProp,
+    defaultValueProp,
+    "" // Fallback value (if both values were `undefined`)
+  );
 
   return (
     <Input
@@ -44,7 +48,7 @@ const MyComponent = (props, ref) => {
       onChange={e => {
         if (onChange) onChange(e);
         // This line only works when the `valueProp` is not controlled
-        setValue(e.target.value);
+        setUncontrolledValue(e.target.value);
       }}
       {...otherProps}
     />
@@ -54,23 +58,28 @@ const MyComponent = (props, ref) => {
 
 ## API
 
-### `useControlledProp(controlledValue, defaultValue)`
+### `useControlledProp(controlledValue, defaultValue, fallbackValue)`
 
 ```ts
 declare const useControlledProp: <T>(
-  controlledValue: T,
-  defaultValue: T
+  controlledValueProp: T | undefined,
+  defaultValueProp: T | undefined,
+  fallbackValue: T
 ) => [
-  value: Exclude<T, undefined>,
-  updater: (value: React.SetStateAction<NonNullable<T>>) => void,
+  value: T,
+  setUncontrolledValue: (value: React.SetStateAction<T>) => void,
   isControlled: boolean
 ];
 ```
 
-#### `controlledValue`
+#### `controlledValueProp`
 
 The value to be controlled.
 
-#### `defaultValue`
+#### `defaultValueProp`
 
 The default value.
+
+#### `fallbackValue`
+
+The value to fallback to when `controlledValue` and `defaultValueProp` were `undefined`.
