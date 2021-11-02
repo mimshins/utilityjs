@@ -69,6 +69,10 @@ module.exports = {
             "./src/hook/usePreviousValue/usePreviousValue.ts"
           ],
           [
+            "@utilityjs/use-get-scrollbar-width",
+            "./src/hook/useGetScrollbarWidth/useGetScrollbarWidth.ts"
+          ],
+          [
             "@utilityjs/comparator",
             "./src/data-structure/Comparator/Comparator.ts"
           ],

@@ -1,0 +1,31 @@
+{
+  "name": "@utilityjs/use-scroll-guard",
+  "version": "1.0.0",
+  "description": "A React hook that disables/enables the page scroll.",
+  "sideEffects": false,
+  "module": "./esm/index.js",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mimshins/utilityjs.git",
+    "directory": "src/useScrollGuard"
+  },
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/src/hook/useScrollGuard",
+  "peerDependencies": {
+    "react": ">=16.8"
+  },
+  "dependencies": {
+    "@utilityjs/use-get-scrollbar-width": "^1.0.1"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "react",
+    "react hook",
+    "enable page scroll",
+    "disable page scroll",
+    "scroll guard"
+  ]
+}
