@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-is-mounted",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React hook that returns `true` if the component is mounted.",
   "sideEffects": false,
   "module": "./esm/index.js",
