@@ -1,0 +1,31 @@
+{
+  "name": "@utilityjs/use-deterministic-id",
+  "version": "1.0.0",
+  "description": "A React hook that generates a deterministic unique ID once per component.",
+  "sideEffects": false,
+  "module": "./esm/index.js",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mimshins/utilityjs.git",
+    "directory": "src/hook/useDeterministicId"
+  },
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/src/hook/useDeterministicId",
+  "peerDependencies": {
+    "react": ">=16.8"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "react",
+    "react hook",
+    "id",
+    "deterministic id",
+    "use id",
+    "id hook",
+    "unique id hook",
+    "unique id"
+  ]
+}
