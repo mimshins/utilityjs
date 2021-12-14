@@ -5,7 +5,7 @@ const useIsMounted = (): (() => boolean) => {
 
   React.useEffect(() => {
     isMountedRef.current = true;
-    () => void (isMountedRef.current = false);
+    return () => void (isMountedRef.current = false);
   }, []);
 
   return React.useCallback(() => isMountedRef.current, []);
