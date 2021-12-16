@@ -43,12 +43,16 @@ Full credits to [Material-UI](https://github.com/mui-org/material-ui)
 
 ## API
 
-### `useDeterministicId()`
+### `useDeterministicId(idOverride?, prefix?)`
 
 ```ts
-declare const useDeterministicId: (idOverride?: string) => string | undefined;
+declare const useDeterministicId: (idOverride?: string, prefix?: string) => string | undefined;
 ```
 
 #### `idOverride`
 
 Allows you to override the generated id with your own id.
+
+#### `prefix`
+
+Allows you to prefix the generated id.
