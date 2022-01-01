@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-forked-refs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React hook for forking/merging multiple refs into a single one.",
   "sideEffects": false,
   "module": "./esm/index.js",
