@@ -9,7 +9,7 @@ const useRegisterNodeRef = (
 ): ((node: Parameters<Callback>[number]) => void) => {
   const cleanupRef = React.useRef<Destructor | null>(null);
 
-  const getCallback = useGetLatest(callback);
+  const cachedCallback = useGetLatest(callback);
 
   const registerRef = React.useCallback(
     (node: Parameters<Callback>[number]) => {
@@ -19,8 +19,7 @@ const useRegisterNodeRef = (
       }
 
       if (node) {
-        const cb = getCallback();
-        const cleanup = cb(node);
+        const cleanup = cachedCallback.current(node);
 
         if (cleanup) cleanupRef.current = cleanup;
         else cleanupRef.current = null;

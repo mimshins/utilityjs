@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-on-change",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A React hook that invokes a callback anytime a value changes.",
   "sideEffects": false,
   "module": "./esm/index.js",
@@ -17,7 +17,7 @@
     "react": ">=16.8"
   },
   "dependencies": {
-    "@utilityjs/use-get-latest": "^1.0.1",
+    "@utilityjs/use-get-latest": "^1.0.2",
     "@utilityjs/use-previous-value": "^1.0.1"
   },
   "keywords": [

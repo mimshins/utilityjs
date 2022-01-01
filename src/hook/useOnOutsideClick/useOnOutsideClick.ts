@@ -7,13 +7,12 @@ const useOnOutsideClick = <T extends HTMLElement = HTMLElement>(
   callback: (event: MouseEvent) => void,
   extendCondition: (event: MouseEvent) => boolean = () => true
 ): void => {
-  const getCallback = useGetLatest(callback);
+  const cachedCallback = useGetLatest(callback);
 
   useEventListener({
     target: typeof window === "undefined" ? null : document,
     eventType: "click",
     handler: event => {
-      const cb = getCallback();
       const element = target && "current" in target ? target.current : target;
 
       if (
@@ -22,7 +21,7 @@ const useOnOutsideClick = <T extends HTMLElement = HTMLElement>(
         !element.contains(event.target as Node) &&
         extendCondition(event)
       ) {
-        cb && cb(event);
+        cachedCallback.current(event);
       }
     }
   });

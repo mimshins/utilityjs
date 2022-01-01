@@ -28,14 +28,12 @@ import useGetLatest from "@utilityjs/use-get-latest";
 import * as React from "react";
 
 const useAttachDomClick = (callback) => {
-  const getLatestCallback = useGetLatest(callback);
+  const cachedCallback = useGetLatest(callback);
 
   React.useEffect(() => {
-    const cb = getLatestCallback();
-
-    document.addEventListener("click", cb);
+    document.addEventListener("click", cachedCallback.current);
     return () => {
-      document.removeEventListener("click", cb);
+      document.removeEventListener("click", cachedCallback.current);
     }
   }, [])
 };
@@ -46,7 +44,7 @@ const useAttachDomClick = (callback) => {
 ### `useGetLatest(value)`
 
 ```ts
-declare const useGetLatest: <T>(value: T) => () => T;
+declare const useGetLatest: <T>(value: T) => MutableRefObject<T>;
 ```
 
 #### `value`

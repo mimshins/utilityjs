@@ -31,10 +31,10 @@ import * as React from "react";
 const useHook = (callback: () => void) => {
   const isMounted = useIsMounted();
 
-  const getLatestCallback = useGetLatest(callback);
+  const cachedCallback = useGetLatest(callback);
 
   React.useEffect(() => {
-    const cb = getLatestCallback();
+    const cb = cachedCallback.current();
     if (isMounted()) cb();
   }, []);
 };
