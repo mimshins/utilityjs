@@ -1,0 +1,35 @@
+{
+  "name": "@utilityjs/use-long-press",
+  "version": "1.0.0",
+  "description": "A React hook that detects long clicks/taps.",
+  "sideEffects": false,
+  "module": "./esm/index.js",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mimshins/utilityjs.git",
+    "directory": "src/useLongPress"
+  },
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/src/hook/useLongPress",
+  "peerDependencies": {
+    "react": ">=16.8"
+  },
+  "dependencies": {
+    "@utilityjs/use-get-latest": "^1.0.2",
+    "@utilityjs/use-register-node-ref": "^1.0.3"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "react",
+    "react hook",
+    "long press",
+    "long touch",
+    "long tap",
+    "use long press",
+    "use long touch",
+    "use long tap"
+  ]
+}
