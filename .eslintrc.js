@@ -73,6 +73,10 @@ module.exports = {
             "./src/hook/useGetScrollbarWidth/useGetScrollbarWidth.ts"
           ],
           [
+            "@utilityjs/use-register-node-ref",
+            "./src/hook/useRegisterNodeRef/useRegisterNodeRef.ts"
+          ],
+          [
             "@utilityjs/comparator",
             "./src/data-structure/Comparator/Comparator.ts"
           ],

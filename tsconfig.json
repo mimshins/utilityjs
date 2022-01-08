@@ -32,6 +32,8 @@
       "@utilityjs/use-get-scrollbar-width*": [
         "./src/hook/useGetScrollbarWidth/*"
       ],
+      "@utilityjs/use-register-node-ref": ["./src/hook/useRegisterNodeRef/"],
+      "@utilityjs/use-register-node-ref*": ["./src/hook/useRegisterNodeRef/*"],
       "@utilityjs/comparator": ["./src/data-structure/Comparator"],
       "@utilityjs/comparator/*": ["./src/data-structure/Comparator/*"],
       "@utilityjs/linked-list": ["./src/data-structure/LinkedList"],
