@@ -1,0 +1,32 @@
+{
+  "name": "@utilityjs/use-dark-mode",
+  "version": "1.0.0",
+  "description": "A React hook that enables a SSR-friendly multi-tab persistent dark mode behaviour.",
+  "sideEffects": false,
+  "module": "./esm/index.js",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mimshins/utilityjs.git",
+    "directory": "src/hook/useDarkMode"
+  },
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/src/hook/useDarkMode",
+  "peerDependencies": {
+    "react": ">=16.8"
+  },
+  "dependencies": {
+    "@utilityjs/use-media-query": "^1.0.1",
+    "@utilityjs/use-persisted-state": "^1.1.2"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "react",
+    "react hook",
+    "dark mode",
+    "use dark mode",
+    "use persistent dark mode"
+  ]
+}
