@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-media-query",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React hook that helps detect whether media queries individually match.",
   "sideEffects": false,
   "module": "./esm/index.js",

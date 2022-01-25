@@ -18,7 +18,7 @@ const useMediaQuery = (query: string | string[]): boolean[] => {
       // eslint-disable-next-line no-console
       console.error(
         [
-          "UtilityJS: useMediaQuery relies on the `window.matchMedia` API.",
+          "[@utilityjs/use-media-query]: useMediaQuery relies on the `window.matchMedia` API.",
           "Since it is not supported in your browser, we are returning `false`."
         ].join("\n")
       );

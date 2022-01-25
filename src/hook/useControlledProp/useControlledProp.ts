@@ -48,7 +48,7 @@ const useControlledProp = <T>(
         // eslint-disable-next-line no-console
         console.error(
           [
-            `UtilityJS: A component is changing the defaultValue state of an uncontrolled prop after being initialized.`,
+            `[@utilityjs/use-controlled-prop]: A component is changing the defaultValue state of an uncontrolled prop after being initialized.`,
             `To suppress this warning use a controlled prop.`
           ].join(" ")
         );
@@ -62,7 +62,7 @@ const useControlledProp = <T>(
         // eslint-disable-next-line no-console
         console.error(
           [
-            `UtilityJS: A component is changing the ${
+            `[@utilityjs/use-controlled-prop]: A component is changing the ${
               isControlled ? "" : "un"
             }controlled state of a prop to be ${
               isControlled ? "un" : ""
@@ -84,7 +84,7 @@ const useControlledProp = <T>(
       // eslint-disable-next-line no-console
       console.error(
         [
-          "UtilityJS: The values you provide are `undefined`!",
+          "[@utilityjs/use-controlled-prop]: The values you provide are `undefined`!",
           "To suppress this warning use a valid non-undefined controlled, default or fallback value."
         ].join(" ")
       );
