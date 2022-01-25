@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-persisted-state",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "A React hook that provides a multi-tab persistent state.",
   "sideEffects": false,
   "module": "./esm/index.js",
@@ -10,14 +10,15 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:mimshins/utilityjs.git",
-    "directory": "src/usePersistedState"
+    "directory": "src/hook/usePersistedState"
   },
-  "homepage": "https://github.com/mimshins/utilityjs/tree/main/src/usePersistedState",
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/src/hook/usePersistedState",
   "peerDependencies": {
     "react": ">=16.8"
   },
   "dependencies": {
-    "@utilityjs/use-event-listener": "^1.0.5"
+    "@utilityjs/use-event-listener": "^1.0.5",
+    "@utilityjs/use-get-latest": "^1.0.2"
   },
   "keywords": [
     "javascript",
