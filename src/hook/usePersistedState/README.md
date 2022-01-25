@@ -6,7 +6,8 @@
 
 <div align="center">
 
-A React hook that provides a multi-tab persistent state.
+A React hook that provides a SSR-friendly multi-tab persistent state.\
+(also supports multiple instances with the same key)
 
 [![license](https://img.shields.io/github/license/mimshins/utilityjs?color=212121&style=for-the-badge)](https://github.com/mimshins/utilityjs/blob/main/LICENSE)
 [![npm latest package](https://img.shields.io/npm/v/@utilityjs/use-persisted-state?color=212121&style=for-the-badge)](https://www.npmjs.com/package/@utilityjs/use-persisted-state)
@@ -18,12 +19,6 @@ npm i @utilityjs/use-persisted-state | yarn add @utilityjs/use-persisted-state
 ```
 
 </div>
-
-<hr>
-
-### Note
-
-Please note that this hook doesn't support multiple instances with the same key, which means you have to use an unique `name` for your hook.
 
 <hr>
 
