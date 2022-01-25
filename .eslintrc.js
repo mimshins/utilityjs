@@ -77,6 +77,14 @@ module.exports = {
             "./src/hook/useRegisterNodeRef/useRegisterNodeRef.ts"
           ],
           [
+            "@utilityjs/use-persisted-state",
+            "./src/hook/usePersistedState/usePersistedState.ts"
+          ],
+          [
+            "@utilityjs/use-media-query",
+            "./src/hook/useMediaQuery/useMediaQuery.ts"
+          ],
+          [
             "@utilityjs/comparator",
             "./src/data-structure/Comparator/Comparator.ts"
           ],
