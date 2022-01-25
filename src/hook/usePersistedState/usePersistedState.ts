@@ -88,7 +88,7 @@ const emitInstanceState = <T>(
   callback: React.Dispatch<React.SetStateAction<T>>,
   value: T
 ) => {
-  if (instanceState[key].value !== value) {
+  if (instanceState[key]?.value !== value) {
     instanceState[key].value = value;
     instanceState[key].callbacks.forEach(
       cb => void (callback !== cb && cb(value))
