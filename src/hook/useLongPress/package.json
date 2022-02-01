@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-long-press",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React hook that detects long clicks/taps.",
   "sideEffects": false,
   "module": "./esm/index.js",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@utilityjs/use-get-latest": "^1.0.2",
-    "@utilityjs/use-register-node-ref": "^1.0.4"
+    "@utilityjs/use-register-node-ref": "^1.1.0"
   },
   "keywords": [
     "javascript",
