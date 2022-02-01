@@ -1,15 +1,13 @@
-import useGetLatest from "@utilityjs/use-get-latest";
 import * as React from "react";
 
 type Destructor = () => void | undefined;
 type Callback = <T extends HTMLElement>(node: T) => void | Destructor;
 
 const useRegisterNodeRef = (
-  callback: Callback
+  callback: Callback,
+  deps: React.DependencyList = []
 ): (<T extends HTMLElement>(node: T | null) => void) => {
   const cleanupRef = React.useRef<Destructor | null>(null);
-
-  const cachedCallback = useGetLatest(callback);
 
   const registerRef = React.useCallback(
     <T extends HTMLElement>(node: T | null) => {
@@ -19,14 +17,14 @@ const useRegisterNodeRef = (
       }
 
       if (node) {
-        const cleanup = cachedCallback.current(node);
+        const cleanup = callback(node);
 
         if (cleanup) cleanupRef.current = cleanup;
         else cleanupRef.current = null;
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    deps
   );
 
   return registerRef;

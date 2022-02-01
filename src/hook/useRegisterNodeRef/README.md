@@ -59,7 +59,7 @@ const App: React.FC = () => {
 
 ## API
 
-### `useRegisterNodeRef(callback)`
+### `useRegisterNodeRef(callback, deps?)`
 
 ```ts
 declare type Destructor = () => void | undefined;
@@ -69,11 +69,16 @@ declare type Callback = <T extends HTMLElement>(
 ) => void | Destructor;
 
 declare const useRegisterNodeRef: (
-  callback: Callback
-) => (node: Parameters<Callback>[number]) => void;
+  callback: Callback,
+  deps?: React.DependencyList
+) => <T extends HTMLElement>(node: T | null) => void;
 ```
 
 #### `callback`
 
 The callback effect to invoke when DOM node mounts/dismounts.<br />
 Note: This callback can also return a cleanup function.
+
+#### `deps` - (default: `[]`)
+
+If present, the callback will only be updated if the values in the list change.
