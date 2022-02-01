@@ -122,6 +122,8 @@ export default class LinkedList<T> {
         node.setNext(null);
         return true;
       }
+
+      return false;
     });
 
     this.tail = newTail;
@@ -152,6 +154,8 @@ export default class LinkedList<T> {
         shouldDownsize = true;
         return true;
       }
+
+      return false;
     });
 
     if (this.tail && this.comparator.isEqual(this.tail.getValue(), value)) {

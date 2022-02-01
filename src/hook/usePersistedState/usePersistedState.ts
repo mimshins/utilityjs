@@ -22,14 +22,14 @@ interface PersistOptions<T> {
    *
    * @default () => localStorage
    */
-  getStorage?: () => Storage | null;
+  getStorage?: (() => Storage | null) | undefined;
   /**
    * Use a custom serializer.
    * The returned string will be stored in the storage.
    *
    * @default JSON.stringify
    */
-  serializer?: (state: StorageValue<T>) => string;
+  serializer?: ((state: StorageValue<T>) => string) | undefined;
   /**
    * Use a custom deserializer.
    * Must return an object matching `{ state: T }`
@@ -37,7 +37,7 @@ interface PersistOptions<T> {
    * @param str The storage's current value.
    * @default JSON.parse
    */
-  deserializer?: (str: string) => StorageValue<T>;
+  deserializer?: ((str: string) => StorageValue<T>) | undefined;
 }
 
 type InstanceState<T> = Record<

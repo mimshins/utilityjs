@@ -75,6 +75,8 @@ export class Vertex<T> {
         result = edge;
         return true;
       }
+
+      return false;
     });
 
     return result;
@@ -90,6 +92,8 @@ export class Vertex<T> {
         flag = true;
         return true;
       }
+
+      return false;
     });
 
     return flag;
@@ -105,6 +109,8 @@ export class Vertex<T> {
         selfEdge = edge;
         return true;
       }
+
+      return false;
     });
 
     return selfEdge;
@@ -131,6 +137,8 @@ export class Vertex<T> {
         flag = true;
         return true;
       }
+
+      return false;
     });
 
     return flag;
