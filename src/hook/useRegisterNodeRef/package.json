@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-register-node-ref",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A React hook that helps you to run some code when a DOM node mounts/dismounts.",
   "sideEffects": false,
   "module": "./esm/index.js",

@@ -117,9 +117,7 @@ const useLongPress = (
     fn("touchend", stopLongPress);
   };
 
-  const subscriber = <T extends HTMLElement>(node: T | null) => {
-    if (!node) return;
-
+  const subscriber = <T extends HTMLElement>(node: T) => {
     handleEvents(node);
     return () => void handleEvents(node, true);
   };

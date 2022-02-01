@@ -2,17 +2,17 @@ import useGetLatest from "@utilityjs/use-get-latest";
 import * as React from "react";
 
 type Destructor = () => void | undefined;
-type Callback = <T extends HTMLElement>(node: T | null) => void | Destructor;
+type Callback = <T extends HTMLElement>(node: T) => void | Destructor;
 
 const useRegisterNodeRef = (
   callback: Callback
-): ((node: Parameters<Callback>[number]) => void) => {
+): (<T extends HTMLElement>(node: T | null) => void) => {
   const cleanupRef = React.useRef<Destructor | null>(null);
 
   const cachedCallback = useGetLatest(callback);
 
   const registerRef = React.useCallback(
-    (node: Parameters<Callback>[number]) => {
+    <T extends HTMLElement>(node: T | null) => {
       if (cleanupRef.current !== null) {
         cleanupRef.current();
         cleanupRef.current = null;
