@@ -1,0 +1,31 @@
+{
+  "name": "@utilityjs/use-force-rerender",
+  "version": "1.0.0",
+  "description": "A React hook that returns a function that will re-render your component when called.",
+  "sideEffects": false,
+  "module": "./esm/index.js",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mimshins/utilityjs.git",
+    "directory": "src/hook/useForceRerender"
+  },
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/src/hook/useForceRerender",
+  "peerDependencies": {
+    "react": ">=16.8"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "react",
+    "react hook",
+    "force update",
+    "force update hook",
+    "use force update",
+    "force rerender",
+    "force rerender hook",
+    "use force rerender"
+  ]
+}
