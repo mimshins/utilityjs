@@ -36,6 +36,10 @@ module.exports = {
     "prefer-const": "error",
     "default-case": "warn",
     "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }
+    ],
     "import/no-unresolved": ["error", { ignore: peerDeps }]
   },
   overrides: [
