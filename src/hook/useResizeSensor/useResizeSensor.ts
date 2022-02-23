@@ -3,7 +3,7 @@ import throttle from "lodash.throttle";
 import * as React from "react";
 
 interface RefreshOptions {
-  mode: "debounce" | "throttle";
+  mode?: "debounce" | "throttle";
   rate?: number;
   leading?: boolean;
   trailing?: boolean;

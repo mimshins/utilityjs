@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-resize-sensor",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React hook that handles element resizes using native `ResizeObserver`.",
   "sideEffects": false,
   "module": "./esm/index.js",
