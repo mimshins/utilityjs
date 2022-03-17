@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-hover",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React hook that determines if the mouse is hovering an element.",
   "sideEffects": false,
   "module": "./esm/index.js",

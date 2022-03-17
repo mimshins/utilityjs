@@ -4,7 +4,7 @@ import * as React from "react";
 const useHover = (): {
   isHovered: boolean;
   setIsHovered: React.Dispatch<React.SetStateAction<boolean>>;
-  registerRef: ReturnType<typeof useRegisterNodeRef>;
+  registerRef: <T extends HTMLElement>(node: T | null) => void;
 } => {
   const [isHovered, setIsHovered] = React.useState(false);
 

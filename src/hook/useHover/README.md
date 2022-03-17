@@ -45,6 +45,6 @@ const App: React.FC = () => {
 declare const useHover: () => {
   isHovered: boolean;
   setIsHovered: React.Dispatch<React.SetStateAction<boolean>>;
-  registerRef: ReturnType<typeof useRegisterNodeRef>;
+  registerRef: <T extends HTMLElement>(node: T | null) => void;
 };
 ```
