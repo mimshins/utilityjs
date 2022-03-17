@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-hover",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React hook that determines if the mouse is hovering an element.",
   "sideEffects": false,
   "module": "./esm/index.js",
@@ -15,6 +15,9 @@
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/src/hook/useHover",
   "peerDependencies": {
     "react": ">=16.8"
+  },
+  "dependencies": {
+    "@utilityjs/use-register-node-ref": "latest"
   },
   "keywords": [
     "javascript",
