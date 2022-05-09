@@ -104,17 +104,17 @@ type KeyCodes = keyof typeof KEYS_KEYCODE;
 
 export type Keys = KeyNames | KeyCodes;
 export type KeyCallback = (event: KeyboardEvent) => void;
-export type KeyBinding = { keys: Keys[]; callback: KeyCallback };
+export type Keybinding = { keys: Keys[]; callback: KeyCallback };
 
 type UseKeybind = {
-  <T extends Window = Window>(target: T | null, bindings: KeyBinding[]): void;
+  <T extends Window = Window>(target: T | null, bindings: Keybinding[]): void;
   <T extends Document = Document>(
     target: T | null,
-    bindings: KeyBinding[]
+    bindings: Keybinding[]
   ): void;
   <T extends HTMLElement = HTMLElement>(
     target: React.RefObject<T> | T | null,
-    bindings: KeyBinding[]
+    bindings: Keybinding[]
   ): void;
 };
 
@@ -177,7 +177,7 @@ const keybindHandler = (
   callback(event);
 };
 
-const useKeybind: UseKeybind = (target: unknown, bindings: KeyBinding[]) => {
+const useKeybind: UseKeybind = (target: unknown, bindings: Keybinding[]) => {
   useEventListener({
     target: target as HTMLElement,
     eventType: "keydown",

@@ -34,9 +34,9 @@ For example, you can't bind these keys together: `["a", "b"]` or `["ArrowLeft", 
 
 ```tsx
 import * as React from "react";
-import useKeybind, { KeyBinding } from "@utilityjs/use-keybind";
+import useKeybind, { Keybinding } from "@utilityjs/use-keybind";
 
-const keybind1: KeyBinding = {
+const keybind1: Keybinding = {
   keys: ["Meta", "s"],
   callback: event => {
     event.preventDefault();
@@ -44,7 +44,7 @@ const keybind1: KeyBinding = {
   }
 };
 
-const keybind2: KeyBinding = {
+const keybind2: Keybinding = {
   keys: ["Meta", "Alt", "Shift", "s"],
   callback: event => {
     event.preventDefault();
@@ -155,17 +155,17 @@ type KeyCodes = keyof typeof KEYS_KEYCODE;
 export type Keys = KeyNames | KeyCodes;
 
 export type KeyCallback = (event: KeyboardEvent) => void;
-export type KeyBinding = { keys: Keys[]; callback: KeyCallback };
+export type Keybinding = { keys: Keys[]; callback: KeyCallback };
 
 type UseKeybind = {
-  <T extends Window = Window>(target: T | null, bindings: KeyBinding[]): void;
+  <T extends Window = Window>(target: T | null, bindings: Keybinding[]): void;
   <T extends Document = Document>(
     target: T | null,
-    bindings: KeyBinding[]
+    bindings: Keybinding[]
   ): void;
   <T extends HTMLElement = HTMLElement>(
     target: React.RefObject<T> | T | null,
-    bindings: KeyBinding[]
+    bindings: Keybinding[]
   ): void;
 };
 
