@@ -1,0 +1,28 @@
+{
+  "name": "@utilityjs/max-heap",
+  "version": "1.0.0",
+  "description": "An implementation of MaxHeap data structure.",
+  "sideEffects": false,
+  "module": "./esm/index.js",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mimshins/utilityjs.git",
+    "directory": "src/data-structure/MaxHeap"
+  },
+  "dependencies": {
+    "@utilityjs/heap": "^1.0.0"
+  },
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/src/data-structure/MaxHeap",
+  "keywords": [
+    "javascript",
+    "typescript",
+    "data structure",
+    "algorithm",
+    "heap",
+    "max heap",
+    "maximum heap"
+  ]
+}
