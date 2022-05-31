@@ -92,6 +92,7 @@ module.exports = {
             "@utilityjs/comparator",
             "./src/data-structure/Comparator/Comparator.ts"
           ],
+          ["@utilityjs/heap", "./src/data-structure/Heap/Heap.ts"],
           [
             "@utilityjs/linked-list",
             "./src/data-structure/LinkedList/LinkedList.ts"
