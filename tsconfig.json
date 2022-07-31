@@ -47,6 +47,8 @@
       "@utilityjs/comparator/*": ["./src/data-structure/Comparator/*"],
       "@utilityjs/heap": ["./src/data-structure/Heap"],
       "@utilityjs/heap/*": ["./src/data-structure/Heap/*"],
+      "@utilityjs/min-heap": ["./src/data-structure/MinHeap"],
+      "@utilityjs/min-heap/*": ["./src/data-structure/MinHeap/*"],
       "@utilityjs/linked-list": ["./src/data-structure/LinkedList"],
       "@utilityjs/linked-list/*": ["./src/data-structure/LinkedList/*"]
     }
