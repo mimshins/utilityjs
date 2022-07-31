@@ -104,7 +104,7 @@ const useEventListener: UseEventListener = (
 
     if (typeof cachedOptions.current !== "boolean") {
       if (isOptionParamSupported()) thirdParam = cachedOptions.current;
-      else thirdParam = undefined;
+      else thirdParam = cachedOptions.current?.capture;
     }
 
     shouldAttach && element.addEventListener(eventType, listener, thirdParam);
