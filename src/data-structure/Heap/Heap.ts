@@ -75,11 +75,11 @@ export default abstract class Heap<T> {
     this.heapifyUp();
   }
 
-  remove(item: T): void {
-    const indicesToRemove = this.find(item);
+  remove(item: T, comparator = this.comparator): void {
+    const indicesToRemove = this.find(item, comparator);
 
     indicesToRemove.forEach(() => {
-      const idxToRemove = <number>this.find(item).pop();
+      const idxToRemove = <number>this.find(item, comparator).pop();
 
       if (idxToRemove === this.container.length - 1) {
         this.container.pop();
@@ -99,12 +99,11 @@ export default abstract class Heap<T> {
     });
   }
 
-  find(item: T): number[] {
+  find(item: T, comparator = this.comparator): number[] {
     if (item == undefined) return [];
 
     return this.container.reduce((indices, currentItem, idx) => {
-      if (this.comparator.isEqual(item, currentItem))
-        return indices.concat(idx);
+      if (comparator.isEqual(item, currentItem)) return indices.concat(idx);
       return indices;
     }, [] as number[]);
   }
