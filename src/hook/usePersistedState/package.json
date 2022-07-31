@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-persisted-state",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "A React hook that provides a SSR-friendly multi-tab persistent state.",
   "sideEffects": false,
   "module": "./esm/index.js",
@@ -17,7 +17,7 @@
     "react": ">=16.8"
   },
   "dependencies": {
-    "@utilityjs/use-event-listener": "^1.0.5",
+    "@utilityjs/use-event-listener": "^1.0.6",
     "@utilityjs/use-get-latest": "^1.0.2"
   },
   "keywords": [

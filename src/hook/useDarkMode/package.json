@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-dark-mode",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React hook that enables a SSR-friendly multi-tab persistent dark mode behaviour.",
   "sideEffects": false,
   "module": "./esm/index.js",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@utilityjs/use-media-query": "^1.0.1",
-    "@utilityjs/use-persisted-state": "^1.1.2"
+    "@utilityjs/use-persisted-state": "^1.1.3"
   },
   "keywords": [
     "javascript",
