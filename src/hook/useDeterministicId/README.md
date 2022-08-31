@@ -19,7 +19,12 @@ npm i @utilityjs/use-deterministic-id | yarn add @utilityjs/use-deterministic-id
 
 </div>
 
-<hr>
+<hr />
+
+This hook in React versions less than 18 relies on hydration to avoid server/client mismatch errors.\
+If you'd like to generate ids server-side, we suggest upgrading to React 18.
+
+<hr />
 
 ## Usage
 
@@ -37,16 +42,12 @@ const App = (props) => {
 };
 ```
 
-## Credit
-
-Full credits to [Material-UI](https://github.com/mui-org/material-ui)
-
 ## API
 
 ### `useDeterministicId(idOverride?, prefix?)`
 
 ```ts
-declare const useDeterministicId: (idOverride?: string, prefix?: string) => string | undefined;
+declare const useDeterministicId: (idOverride?: string, prefix?: string) => string;
 ```
 
 #### `idOverride`
