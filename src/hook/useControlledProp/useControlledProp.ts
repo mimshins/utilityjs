@@ -23,7 +23,7 @@ const useControlledProp = <T>(
   fallbackValue: T
 ): [
   value: T,
-  setUncontrolledValue: (value: React.SetStateAction<T>) => void,
+  setUncontrolledValue: React.Dispatch<React.SetStateAction<T>>,
   isControlled: boolean
 ] => {
   const { current: isControlled } = React.useRef(!isUndef(controlledValueProp));
