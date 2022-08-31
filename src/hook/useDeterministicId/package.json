@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-deterministic-id",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A React hook that generates a deterministic unique ID once per component.",
   "sideEffects": false,
   "module": "./esm/index.js",
