@@ -1,0 +1,29 @@
+{
+  "name": "@utilityjs/create-store-context",
+  "version": "1.0.0",
+  "description": "An enhanced React store-context that manages states of a tree where unnecessary re-renders have been omitted.",
+  "sideEffects": false,
+  "module": "./esm/index.js",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mimshins/utilityjs.git",
+    "directory": "src/function/createStoreContext"
+  },
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/src/function/createStoreContext",
+  "peerDependencies": {
+    "react": ">=16.8"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "react",
+    "context",
+    "store",
+    "state store",
+    "state management",
+    "context state"
+  ]
+}
