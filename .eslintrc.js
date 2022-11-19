@@ -89,6 +89,10 @@ module.exports = {
             "./src/hook/useMediaQuery/useMediaQuery.ts"
           ],
           [
+            "@utilityjs/use-lazy-initialized-value",
+            "./src/hook/useLazyInitializedValue/useLazyInitializedValue.ts"
+          ],
+          [
             "@utilityjs/comparator",
             "./src/data-structure/Comparator/Comparator.ts"
           ],

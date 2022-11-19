@@ -34,15 +34,21 @@
       "@utilityjs/use-get-scrollbar-width": [
         "./src/hook/useGetScrollbarWidth/"
       ],
-      "@utilityjs/use-get-scrollbar-width*": [
+      "@utilityjs/use-get-scrollbar-width/*": [
         "./src/hook/useGetScrollbarWidth/*"
       ],
       "@utilityjs/use-register-node-ref": ["./src/hook/useRegisterNodeRef/"],
-      "@utilityjs/use-register-node-ref*": ["./src/hook/useRegisterNodeRef/*"],
+      "@utilityjs/use-register-node-ref/*": ["./src/hook/useRegisterNodeRef/*"],
       "@utilityjs/use-persisted-state": ["./src/hook/usePersistedState/"],
-      "@utilityjs/use-persisted-state*": ["./src/hook/usePersistedState/*"],
+      "@utilityjs/use-persisted-state/*": ["./src/hook/usePersistedState/*"],
       "@utilityjs/use-media-query": ["./src/hook/useMediaQuery/"],
-      "@utilityjs/use-media-query*": ["./src/hook/useMediaQuery/*"],
+      "@utilityjs/use-media-query/*": ["./src/hook/useMediaQuery/*"],
+      "@utilityjs/use-lazy-initialized-value": [
+        "./src/hook/useLazyInitializedValue/"
+      ],
+      "@utilityjs/use-lazy-initialized-value/*": [
+        "./src/hook/useLazyInitializedValue/*"
+      ],
       "@utilityjs/comparator": ["./src/data-structure/Comparator"],
       "@utilityjs/comparator/*": ["./src/data-structure/Comparator/*"],
       "@utilityjs/heap": ["./src/data-structure/Heap"],
