@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-keybind",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A React hook for invoking a callback when hotkeys are pressed.",
   "sideEffects": false,
   "module": "./esm/index.js",

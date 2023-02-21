@@ -1,21 +1,21 @@
 import useEventListener from "@utilityjs/use-event-listener";
 import * as React from "react";
 
-const MODIFIERS = {
+export const MODIFIERS = {
   Alt: "Alt",
   Control: "Control",
   Meta: "Meta",
   Shift: "Shift"
 } as const;
 
-const EVENT_MODIFIERS = {
+export const EVENT_MODIFIERS = {
   Alt: "altKey",
   Control: "ctrlKey",
   Meta: "metaKey",
   Shift: "shiftKey"
 } as const;
 
-const KEYS_KEYCODE = {
+export const KEYS_KEYCODE = {
   Space: "Space",
   ";": "Semicolon",
   "=": "Equal",
@@ -66,7 +66,7 @@ const KEYS_KEYCODE = {
   z: "KeyZ"
 } as const;
 
-const KEYS_KEYNAME = {
+export const KEYS_KEYNAME = {
   Backspace: "Backspace",
   Tab: "Tab",
   Enter: "Enter",
