@@ -2,17 +2,16 @@ import * as React from "react";
 
 type SubscribeCallback = () => void;
 
-type PubSub<S> = {
-  getState: () => S;
-  setState: React.Dispatch<React.SetStateAction<S>>;
-  subscribe: (onStoreChange: SubscribeCallback) => () => void;
-};
-
 type StateSelector<State, PartialState> = (store: State) => PartialState;
 
 type UseStoreHook<State> = <PartialState = State>(
-  selector?: StateSelector<State, PartialState>
-) => [PartialState, React.Dispatch<React.SetStateAction<State>>];
+  selector: StateSelector<State, PartialState>
+) => PartialState;
+
+type StateFactory<S> = (
+  setState: (setter: (prevState: S) => S) => void,
+  getState: () => S
+) => S;
 
 const useSyncStore = <State,>(
   subscribe: (onStoreChange: SubscribeCallback) => () => void,
@@ -24,50 +23,51 @@ const useSyncStore = <State,>(
       ? getSnapshot
       : getServerSnapshot ?? getSnapshot;
 
-  const [state, setState] = React.useState(getIsomorphicSnapshot());
+  const [state, setState] = React.useState(getIsomorphicSnapshot);
 
   const onStoreChange = React.useCallback(
-    () => setState(getIsomorphicSnapshot()),
+    () => setState(() => getIsomorphicSnapshot()),
     [getIsomorphicSnapshot]
   );
 
-  React.useEffect(() => subscribe(onStoreChange), [subscribe, onStoreChange]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(() => subscribe(onStoreChange), [onStoreChange]);
 
   return state;
 };
 
-/* eslint-disable */
-const useSafeSyncStore =
-  // We use `toString()` to prevent bundlers from trying to `import { useSyncExternalStore } from "react"`
-  ((React as any)["useSyncExternalStore".toString()] as typeof useSyncStore) ??
-  useSyncStore;
-/* eslint-enable */
+const __STORE_SENTINEL__ = {};
 
-const createStoreContext = <State,>(
-  initialState: State
+const createStoreContext = <S,>(
+  stateFactory: StateFactory<S>
 ): {
   StoreProvider: (props: { children: React.ReactNode }) => JSX.Element;
-  useStore: UseStoreHook<State>;
+  useStore: UseStoreHook<S>;
 } => {
-  const StateStoreContext = React.createContext<PubSub<State> | null>(null);
+  const StoreContext = React.createContext<{
+    getState: () => S;
+    subscribe: (onStoreChange: SubscribeCallback) => () => void;
+  } | null>(null);
 
-  const usePubSub = (): PubSub<State> => {
-    const store = React.useRef(initialState);
+  if (process.env.NODE_ENV !== "production")
+    StoreContext.displayName = "StoreContext";
+
+  const StoreProvider = (props: { children: React.ReactNode }) => {
+    const store = React.useRef<S>(__STORE_SENTINEL__ as S);
     const subscribers = React.useRef(new Set<SubscribeCallback>());
 
     const getState = React.useCallback(() => store.current, []);
 
-    const setState = React.useCallback<
-      React.Dispatch<React.SetStateAction<State>>
-    >(setter => {
-      const newState =
-        typeof setter === "function"
-          ? (setter as (prevState: State) => State)(store.current)
-          : setter;
+    const setState = React.useCallback((setter: (prevState: S) => S) => {
+      const newState = setter(store.current);
 
       store.current = newState;
       subscribers.current.forEach(cb => cb());
     }, []);
+
+    // Lazy initialization
+    if (store.current === __STORE_SENTINEL__)
+      store.current = stateFactory(setState, getState);
 
     const subscribe = React.useCallback((onStoreChange: SubscribeCallback) => {
       subscribers.current.add(onStoreChange);
@@ -77,24 +77,20 @@ const createStoreContext = <State,>(
       };
     }, []);
 
-    return React.useMemo(
-      () => ({ getState, setState, subscribe }),
-      [getState, setState, subscribe]
+    const context = React.useMemo(
+      () => ({ getState, subscribe }),
+      [getState, subscribe]
     );
-  };
-
-  const Provider = (props: { children: React.ReactNode }) => {
-    const pubSub = usePubSub();
 
     return (
-      <StateStoreContext.Provider value={pubSub}>
+      <StoreContext.Provider value={context}>
         {props.children}
-      </StateStoreContext.Provider>
+      </StoreContext.Provider>
     );
   };
 
-  const useStore: UseStoreHook<State> = selector => {
-    const storeContext = React.useContext(StateStoreContext);
+  const useStore: UseStoreHook<S> = selector => {
+    const storeContext = React.useContext(StoreContext);
 
     if (!storeContext) {
       throw new Error(
@@ -102,26 +98,18 @@ const createStoreContext = <State,>(
       );
     }
 
-    const safeSelector = React.useMemo(
-      () => selector ?? ((state: State) => state),
+    const { getState, subscribe } = storeContext;
+
+    const getSnapshot = React.useCallback(
+      () => selector(getState()),
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       [selector]
     );
 
-    const getSnapshot = React.useCallback(
-      () => safeSelector(storeContext.getState()),
-      [safeSelector, storeContext]
-    );
-
-    const state = useSafeSyncStore(
-      storeContext.subscribe,
-      getSnapshot,
-      getSnapshot
-    );
-
-    return [state as Exclude<typeof state, State>, storeContext.setState];
+    return useSyncStore(subscribe, getSnapshot, getSnapshot);
   };
 
-  return { useStore, StoreProvider: Provider };
+  return { useStore, StoreProvider };
 };
 
 export default createStoreContext;

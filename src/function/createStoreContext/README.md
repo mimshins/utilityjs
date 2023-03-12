@@ -6,7 +6,7 @@
 
 <div align="center">
 
-An enhanced React store-context that manages states of a tree where unnecessary re-renders have been omitted.
+A React store-context that manages states of a tree where unnecessary re-renders have been omitted thanks to the Pub/Sub design pattern.
 
 [![license](https://img.shields.io/github/license/mimshins/utilityjs?color=212121&style=for-the-badge)](https://github.com/mimshins/utilityjs/blob/main/LICENSE)
 [![npm latest package](https://img.shields.io/npm/v/@utilityjs/create-store-context?color=212121&style=for-the-badge)](https://www.npmjs.com/package/@utilityjs/create-store-context)
@@ -19,84 +19,64 @@ npm i @utilityjs/create-store-context | yarn add @utilityjs/create-store-context
 
 </div>
 
-<hr>
+<hr />
+
+## How does it work?
+
+The `<StoreProvider>` works as a Publisher and each `useStore` is a Subscriber. So when the state changes, only necessary Subscribers will be re-rendered. Since we are using `useRef` instead of `useState` the Publisher itself won't re-render.
+
+This way we guarantee that only the necessary components need to be re-rendered.
+
+<hr />
 
 ## Usage
 
 ```jsx
-import createStoreContext from "createStoreContext";
-import * as React from "react";
+import createStoreContext from "@utilityjs/create-store-context";
 
-interface IStoreState {
-  first: string;
-  second: string;
+interface StoreState {
+  count: number;
+  log: () => void;
+  increase: (amount: number) => void;
 }
 
-const { StoreProvider, useStore } = createStoreContext<IStoreState>({
-  first: "A",
-  second: "B"
-});
+const { useStore, StoreProvider } = createStoreContext<StoreState>(
+  (setState, getState) => ({
+    count: 0,
+    log: () => void getState().count,
+    increase: amount =>
+      setState(state => ({ ...state, count: state.count + amount }))
+  })
+);
 
-const TextInput = (props: { label: string }) => {
-  const selector = React.useCallback(
-    (state: IStoreState) => state[props.label as keyof IStoreState],
-    [props.label]
-  );
-
-  const [state, setState] = useStore(selector);
+const Controls = () => {
+  const increase = useStore(state => state.increase);
 
   return (
     <div>
-      <label>
-        {props.label}{" "}
-        <input
-          type="text"
-          value={state}
-          onChange={event =>
-            setState(s => ({ ...s, [props.label]: event.target.value }))
-          }
-        />
-      </label>
+      <button onClick={() => increase(1)}>Increase by 1</button>
+      <button onClick={() => increase(5)}>Increase by 5</button>
+      <button onClick={() => increase(10)}>Increase by 10</button>
     </div>
   );
 };
 
-const Display = (props: { label: string }) => {
-  const selector = React.useCallback(
-    (state: IStoreState) => state[props.label as keyof IStoreState],
-    [props.label]
-  );
+const Display = () => {
+  const { count, log } = useStore(state => ({
+    count: state.count,
+    log: state.log
+  }));
 
-  const [state] = useStore(selector);
+  log();
 
-  return (
-    <div>
-      {props.label}: {state}
-    </div>
-  );
+  return <div>Count: {count}</div>;
 };
-
-const DisplayContainer = () => (
-  <div>
-    <h3>Display</h3>
-    <Display label="First" />
-    <Display label="Second" />
-  </div>
-);
-
-const Form = () => (
-  <div>
-    <h3>Form</h3>
-    <TextInput label="First" />
-    <TextInput label="Second" />
-  </div>
-);
 
 const Container = () => (
   <div>
     <h2>Container</h2>
-    <Form />
-    <DisplayContainer />
+    <Controls />
+    <Display />
   </div>
 );
 
@@ -116,7 +96,7 @@ const App = () => {
 
 ## API
 
-### `createStoreContext(initialState)`
+### `createStoreContext(stateFactory)`
 
 ```ts
 type StateSelector<State, PartialState> = (
@@ -124,15 +104,20 @@ type StateSelector<State, PartialState> = (
 ) => PartialState;
 
 type UseStoreHook<State> = <PartialState = State>(
-  selector?: StateSelector<State, PartialState>
-) => [PartialState, React.Dispatch<React.SetStateAction<State>>];
+  selector: StateSelector<State, PartialState>
+) => PartialState;
 
-declare const createStoreContext: <State>(initialState: State) => {
+type StateFactory<S> = (
+  setState: (setter: (prevState: S) => S) => void,
+  getState: () => S
+) => S;
+
+declare const createStoreContext: <S>(stateFactory: StateFactory<S>) => {
   StoreProvider: (props: { children: React.ReactNode }) => JSX.Element;
-  useStore: UseStoreHook<State>;
+  useStore: UseStoreHook<S>;
 };
 ```
 
-#### `initialState`
+#### `stateFactory`
 
-The initial state of the store.
+An initialization function to initialize the states.
