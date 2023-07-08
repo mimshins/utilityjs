@@ -28,7 +28,7 @@ npm i @utilityjs/use-force-rerender | yarn add @utilityjs/use-force-rerender
 const Component = () => {
   const forceRerender = useForceRerender();
 
-  React.useEffect(() => void DataStore.subscribe(() => void forceUpdate()), []);
+  React.useEffect(() => void DataStore.subscribe(() => void forceRerender()), []);
 
   return <>{DataStore.data}</>;
 }
