@@ -1,0 +1,47 @@
+{
+  "name": "@utilityjs/heap",
+  "version": "1.0.1",
+  "description": "An implementation of abstract Heap class.",
+  "license": "MIT",
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/data-structure/heap",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mimshins/utilityjs.git",
+    "directory": "packages/data-structure/heap"
+  },
+  "bugs": {
+    "url": "https://github.com/mimshins/utilityjs/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "data structure",
+    "algorithm",
+    "heap"
+  ],
+  "scripts": {
+    "clear": "shx rm -rf dist",
+    "test": "vitest run --root .",
+    "test:watch": "vitest  --root .",
+    "bundle": "tsdown",
+    "build": "run-s clear bundle",
+    "release": "pnpm publish . --tag latest --access public --no-git-checks"
+  },
+  "dependencies": {
+    "@utilityjs/comparator": "workspace:*"
+  }
+}
