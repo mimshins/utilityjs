@@ -39,8 +39,8 @@
   ],
   "scripts": {
     "clear": "shx rm -rf dist",
-    "test": "vitest run --root .",
-    "test:watch": "vitest  --root .",
+    "test": "vitest run --config ../../../vitest.node.config.ts --root .",
+    "test:watch": "vitest --config ../../../vitest.node.config.ts  --root .",
     "bundle": "tsdown",
     "build": "run-s clear bundle",
     "release": "pnpm publish . --tag latest --access public --no-git-checks"
