@@ -6,7 +6,7 @@ const config = defineConfig({
   plugins: [reactPlugin(), tsconfigPaths()],
   test: {
     environment: "jsdom",
-    setupFiles: ["browser.setup.ts"],
+    setupFiles: ["test.browser.setup.ts"],
     include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
     coverage: {
       enabled: true,

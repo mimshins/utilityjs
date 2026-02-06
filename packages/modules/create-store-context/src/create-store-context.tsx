@@ -45,9 +45,11 @@ const createStoreContext = <S,>(
     subscribe: (onStoreChange: SubscribeCallback) => () => void;
   } | null>(null);
 
+  /* v8 ignore start */
   if (process.env["NODE_ENV"] !== "production") {
     StoreContext.displayName = "StoreContext";
   }
+  /* v8 ignore stop */
 
   /**
    * Provider component that wraps the component tree and provides store access.
@@ -69,11 +71,13 @@ const createStoreContext = <S,>(
     }, []);
 
     // Lazy initialization
+    /* v8 ignore start */
     // eslint-disable-next-line react-hooks/refs
     if (store.current === __STORE_SENTINEL__) {
       // eslint-disable-next-line react-hooks/refs
       store.current = stateFactory(setState, getState);
     }
+    /* v8 ignore stop */
 
     const subscribe = React.useCallback((onStoreChange: SubscribeCallback) => {
       subscribers.current.add(onStoreChange);

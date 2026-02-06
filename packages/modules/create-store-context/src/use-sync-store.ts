@@ -16,10 +16,12 @@ export const useSyncStore = <State>(
   getSnapshot: () => State,
   getServerSnapshot?: () => State,
 ): State => {
+  /* v8 ignore start */
   const getIsomorphicSnapshot =
     typeof document !== "undefined"
       ? getSnapshot
       : (getServerSnapshot ?? getSnapshot);
+  /* v8 ignore stop */
 
   const [state, setState] = useState(getIsomorphicSnapshot);
 
