@@ -1,5 +1,7 @@
+/** Callback function type for intersection observer */
 type ObserveCallback = (isInView: boolean, isIntersected: boolean) => void;
 
+/** Observer instance with metadata */
 type ObserverInstance = {
   id: string;
   observer: IntersectionObserver;
@@ -10,6 +12,10 @@ let rootId = 0;
 const RootIds = new WeakMap<Element | Document, string>();
 const observers = new Map<string, ObserverInstance>();
 
+/**
+ * Cross-platform requestIdleCallback implementation.
+ * Falls back to setTimeout if requestIdleCallback is not available.
+ */
 export const requestIdleCallback =
   (typeof self !== "undefined" &&
     self.requestIdleCallback &&
@@ -27,6 +33,10 @@ export const requestIdleCallback =
     }, 1) as unknown as number;
   };
 
+/**
+ * Cross-platform cancelIdleCallback implementation.
+ * Falls back to clearTimeout if cancelIdleCallback is not available.
+ */
 export const cancelIdleCallback =
   (typeof self !== "undefined" &&
     self.cancelIdleCallback &&
@@ -35,6 +45,12 @@ export const cancelIdleCallback =
     return clearTimeout(id);
   };
 
+/**
+ * Gets the IntersectionObserver constructor from the global scope.
+ * Checks multiple global objects for cross-environment compatibility.
+ *
+ * @returns The IntersectionObserver constructor or null if not available
+ */
 export const getObserver = () => {
   if (typeof global !== "undefined" && global.IntersectionObserver)
     return global.IntersectionObserver;
@@ -50,6 +66,12 @@ export const getObserver = () => {
   return null;
 };
 
+/**
+ * Gets or creates a unique ID for a root element.
+ *
+ * @param rootOption The root element for intersection observation
+ * @returns A unique string ID for the root element
+ */
 const getRootId = (rootOption: IntersectionObserverInit["root"]) => {
   if (!rootOption) return "0";
   if (RootIds.has(rootOption)) return RootIds.get(rootOption)!;
@@ -60,6 +82,12 @@ const getRootId = (rootOption: IntersectionObserverInit["root"]) => {
   return `${rootId}`;
 };
 
+/**
+ * Creates a unique ID for an intersection observer based on its options.
+ *
+ * @param options The intersection observer options
+ * @returns A unique string ID representing the observer configuration
+ */
 const createId = (options: IntersectionObserverInit) =>
   Object.keys(options)
     .sort()
@@ -76,6 +104,13 @@ const createId = (options: IntersectionObserverInit) =>
     )
     .toString();
 
+/**
+ * Starts observing a node with the given observer instance.
+ *
+ * @template T The type of HTML element
+ * @param node The DOM node to observe
+ * @param instance The observer instance
+ */
 const observe = <T extends HTMLElement>(
   node: T,
   instance: ObserverInstance,
@@ -84,6 +119,13 @@ const observe = <T extends HTMLElement>(
   instance.nodes.push(node);
 };
 
+/**
+ * Stops observing a node and cleans up the observer if no nodes remain.
+ *
+ * @template T The type of HTML element
+ * @param node The DOM node to stop observing
+ * @param instance The observer instance
+ */
 const unobserve = <T extends HTMLElement>(
   node: T,
   instance: ObserverInstance,
@@ -100,6 +142,16 @@ const unobserve = <T extends HTMLElement>(
   }
 };
 
+/**
+ * Creates or reuses an intersection observer for the given node and options.
+ * Observers are shared between nodes with identical configurations for performance.
+ *
+ * @template T The type of HTML element
+ * @param node The DOM node to observe
+ * @param callback Function called when intersection state changes
+ * @param options Intersection observer configuration options
+ * @returns An object with observe and unobserve methods, or null if IntersectionObserver is not available
+ */
 export const createObserver = <T extends HTMLElement>(
   node: T,
   callback: ObserveCallback,

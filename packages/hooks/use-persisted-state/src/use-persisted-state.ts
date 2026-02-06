@@ -11,6 +11,11 @@ import { __INSTANCES_REF_MAP__ } from "./constants.ts";
 import type { InstanceRef } from "./types.ts";
 import { emitInstances } from "./utils.ts";
 
+/**
+ * Interface for storage implementations used by usePersistedState.
+ *
+ * @template T The type of data to be stored
+ */
 export interface DataStorage<T> {
   /**
    * Sets an item in storage.
@@ -29,11 +34,39 @@ export interface DataStorage<T> {
   getItem(key: string): T | null;
 }
 
+/**
+ * Configuration object for usePersistedState hook.
+ *
+ * @template T The type of data to be persisted
+ */
 export type Config<T> = {
+  /** The unique key to identify the persisted state */
   name: string;
+  /** The storage implementation to use for persistence */
   storage: DataStorage<T>;
 };
 
+/**
+ * A React hook that provides SSR-friendly multi-tab persistent state.
+ *
+ * This hook synchronizes state across multiple tabs/windows and persists
+ * the state using the provided storage implementation. It handles SSR
+ * scenarios gracefully and provides automatic synchronization between
+ * multiple instances of the same hook.
+ *
+ * @template T The type of the state value
+ * @param initialValue The initial state value or a function that returns it
+ * @param storageConfig Configuration object containing storage name and implementation
+ * @returns A tuple containing the current state and a setter function
+ *
+ * @example
+ * ```tsx
+ * const [count, setCount] = usePersistedState(0, {
+ *   name: 'counter',
+ *   storage: localStorage
+ * });
+ * ```
+ */
 export const usePersistedState = <T>(
   initialValue: T | (() => T),
   storageConfig: Config<T>,

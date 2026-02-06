@@ -13,6 +13,35 @@ import {
   makeUnshift,
 } from "./utils.ts";
 
+/**
+ * A React hook that provides immutable array operations with state management.
+ * All operations return new arrays without mutating the original array.
+ *
+ * @template T The type of elements in the array
+ * @param array Initial array values
+ * @returns An object containing array values and immutable operation methods
+ *
+ * @example
+ * ```tsx
+ * function TodoList() {
+ *   const { values, push, removeByIndex } = useImmutableArray<string>([]);
+ *
+ *   const addTodo = (todo: string) => push(todo);
+ *   const removeTodo = (index: number) => removeByIndex(index);
+ *
+ *   return (
+ *     <div>
+ *       {values.map((todo, index) => (
+ *         <div key={index}>
+ *           {todo}
+ *           <button onClick={() => removeTodo(index)}>Remove</button>
+ *         </div>
+ *       ))}
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
 export const useImmutableArray = <T>(array: T[]): Return<T> => {
   const [values, setValues] = useState<T[]>(array);
 

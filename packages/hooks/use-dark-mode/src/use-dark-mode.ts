@@ -9,9 +9,12 @@ import { addClassName, removeClassName } from "./utils.ts";
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
+/**
+ * Configuration options for the useDarkMode hook.
+ */
 export type Options = {
   /**
-   * The initial state of the dark mode.\
+   * The initial state of the dark mode.
    * If left unset, it will be set based on `(prefers-color-scheme: dark)` query.
    */
   initialState?: boolean;
@@ -24,7 +27,7 @@ export type Options = {
   storageKey?: string;
 
   /**
-   * The class to toggle when state changes.\
+   * The class to toggle when state changes.
    * The specified class will be applied on dark mode.
    *
    * @default "dark-mode"
@@ -60,6 +63,34 @@ const DEFAULT_STORAGE: DataStorage<boolean> = {
   },
 };
 
+/**
+ * A React hook for managing dark mode state with persistence and system preference detection.
+ *
+ * This hook automatically detects the user's system color scheme preference,
+ * persists the dark mode state to storage, and applies CSS classes to the document body.
+ *
+ * @param options Configuration options for the hook
+ * @returns An object containing the current dark mode state and control functions
+ *
+ * @example
+ * ```tsx
+ * function App() {
+ *   const { isDarkMode, enable, disable, toggle } = useDarkMode({
+ *     initialState: false,
+ *     toggleClassName: "dark-theme"
+ *   });
+ *
+ *   return (
+ *     <div>
+ *       <p>Current mode: {isDarkMode ? "Dark" : "Light"}</p>
+ *       <button onClick={toggle}>Toggle Theme</button>
+ *       <button onClick={enable}>Enable Dark Mode</button>
+ *       <button onClick={disable}>Disable Dark Mode</button>
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
 export const useDarkMode = (
   options?: Options,
 ): {

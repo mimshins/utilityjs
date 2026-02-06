@@ -2,23 +2,40 @@ import { useGetLatest } from "@utilityjs/use-get-latest";
 import { useEffect, type RefObject } from "react";
 import { isOptionParamSupported } from "./utils.ts";
 
+/**
+ * Event listener function type for HTML elements.
+ */
 type ElementEventListener<K extends keyof HTMLElementEventMap> = (
   this: HTMLElement,
   ev: HTMLElementEventMap[K],
 ) => void;
 
+/**
+ * Event listener function type for Document.
+ */
 type DocumentEventListener<K extends keyof DocumentEventMap> = (
   this: Document,
   ev: DocumentEventMap[K],
 ) => void;
 
+/**
+ * Event listener function type for Window.
+ */
 type WindowEventListener<K extends keyof WindowEventMap> = (
   this: Window,
   ev: WindowEventMap[K],
 ) => void;
 
+/**
+ * Options for event listener configuration.
+ * Can be a boolean (for capture) or AddEventListenerOptions object.
+ */
 export type Options = boolean | AddEventListenerOptions;
 
+/**
+ * Overloaded type definition for the useEventListener hook.
+ * Provides type safety for different target types (HTMLElement, Document, Window).
+ */
 type UseEventListener = {
   <K extends keyof HTMLElementEventMap, T extends HTMLElement = HTMLElement>(
     config: {
@@ -49,6 +66,42 @@ type UseEventListener = {
   ): void;
 };
 
+/**
+ * A React hook that handles binding and unbinding event listeners in a smart way.
+ *
+ * This hook automatically manages event listener lifecycle, handles ref objects,
+ * and provides type safety for different event targets. It also gracefully handles
+ * browser compatibility for event listener options.
+ *
+ * @param config Configuration object containing target, event type, handler, and options
+ * @param shouldAttach Whether to attach the event listener (default: true)
+ *
+ * @example
+ * ```tsx
+ * // Listen to window events
+ * useEventListener({
+ *   target: window,
+ *   eventType: "resize",
+ *   handler: () => console.log("Window resized")
+ * });
+ *
+ * // Listen to element events with ref
+ * const buttonRef = useRef<HTMLButtonElement>(null);
+ * useEventListener({
+ *   target: buttonRef,
+ *   eventType: "click",
+ *   handler: (e) => console.log("Button clicked", e)
+ * });
+ *
+ * // Listen to document events with options
+ * useEventListener({
+ *   target: document,
+ *   eventType: "keydown",
+ *   handler: (e) => console.log("Key pressed", e.key),
+ *   options: { passive: true }
+ * });
+ * ```
+ */
 export const useEventListener: UseEventListener = (
   config: {
     target: RefObject<HTMLElement> | HTMLElement | Window | Document | null;

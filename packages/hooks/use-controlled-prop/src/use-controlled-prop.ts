@@ -8,6 +8,38 @@ import {
 } from "react";
 import { isEqual, isUndef } from "./utils.ts";
 
+/**
+ * A React hook that manages controlled and uncontrolled prop patterns.
+ *
+ * This hook helps components support both controlled and uncontrolled usage patterns
+ * by managing the state internally when no controlled value is provided, while
+ * deferring to the controlled value when it is provided.
+ *
+ * @template T The type of the value being controlled
+ * @param controlledValueProp The controlled value from props (undefined for uncontrolled)
+ * @param defaultValueProp The default value for uncontrolled usage
+ * @param fallbackValue The fallback value when both controlled and default are undefined
+ * @returns A tuple containing [currentValue, setter, isControlled]
+ *
+ * @example
+ * ```tsx
+ * function MyInput({ value, defaultValue, onChange }) {
+ *   const [inputValue, setInputValue, isControlled] = useControlledProp(
+ *     value,
+ *     defaultValue,
+ *     ""
+ *   );
+ *
+ *   const handleChange = (e) => {
+ *     const newValue = e.target.value;
+ *     setInputValue(newValue);
+ *     onChange?.(newValue);
+ *   };
+ *
+ *   return <input value={inputValue} onChange={handleChange} />;
+ * }
+ * ```
+ */
 export const useControlledProp = <T>(
   controlledValueProp: T | undefined,
   defaultValueProp: T | undefined,
