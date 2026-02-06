@@ -1,0 +1,163 @@
+import { useIsServerHandoffComplete } from "@utilityjs/use-is-server-handoff-complete";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
+import { __INSTANCES_REF_MAP__ } from "./constants.ts";
+import type { InstanceRef } from "./types.ts";
+import { emitInstances } from "./utils.ts";
+
+export interface DataStorage<T> {
+  /**
+   * Sets an item in storage.
+   *
+   * @param key The key under which to store the item.
+   * @param value The value to store. Can be any serializable type.
+   */
+  setItem(key: string, value: T): void;
+
+  /**
+   * Retrieves an item from storage.
+   *
+   * @param key The key of the item to retrieve.
+   * @returns The retrieved value, or null if not found.
+   */
+  getItem(key: string): T | null;
+}
+
+export type Config<T> = {
+  name: string;
+  storage: DataStorage<T>;
+};
+
+export const usePersistedState = <T>(
+  initialValue: T | (() => T),
+  storageConfig: Config<T>,
+): [T, Dispatch<SetStateAction<T>>] => {
+  const { name, storage } = storageConfig;
+
+  if (name == null || typeof name !== "string" || name.length === 0) {
+    throw new Error(
+      `[@utilityjs/use-persisted-state]: Expected a valid \`name\` value, received \`${name}\`.`,
+    );
+  }
+
+  const initialRenderCompleted = useRef(false);
+
+  const initializeState = (): T => {
+    const init = storage.getItem(name) ?? initialValue;
+    const initialState = init instanceof Function ? init() : init;
+
+    initialRenderCompleted.current = true;
+
+    return initialState;
+  };
+
+  const isClientReady = useIsServerHandoffComplete();
+
+  const [state, setState] = useState(
+    !isClientReady ? initialValue : initializeState,
+  );
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (initialRenderCompleted.current) return;
+
+    const initialState = initializeState();
+
+    if (state !== initialState) setState(initialState);
+
+    initialRenderCompleted.current = true;
+  });
+
+  useEffect(() => {
+    const initialState =
+      initialValue instanceof Function ? initialValue() : initialValue;
+
+    if (!__INSTANCES_REF_MAP__.has(name)) {
+      __INSTANCES_REF_MAP__.set(name, {
+        callbacks: [],
+        value: initialState,
+      });
+    }
+
+    (__INSTANCES_REF_MAP__.get(name) as InstanceRef<T>).callbacks.push(
+      setState,
+    );
+
+    return () => {
+      const instance = __INSTANCES_REF_MAP__.get(name);
+
+      if (!instance) return;
+
+      const cbs = (instance as InstanceRef<T>).callbacks;
+      const index = cbs.indexOf(setState);
+
+      if (index > -1) cbs.splice(index, 1);
+    };
+  }, [initialValue, name]);
+
+  useEffect(() => {
+    const handleStorageChange = (event: StorageEvent) => {
+      const { key, newValue } = event;
+
+      if (key !== name) return;
+
+      const initialState =
+        initialValue instanceof Function ? initialValue() : initialValue;
+
+      if (newValue == null) {
+        setState(initialState);
+
+        return;
+      }
+
+      let parsed: T | null;
+
+      try {
+        parsed = JSON.parse(newValue) as T;
+      } catch {
+        parsed = null;
+      }
+
+      if (parsed == null) setState(initialState);
+      else {
+        setState(prevState => {
+          if (prevState !== parsed) return parsed;
+
+          return prevState;
+        });
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [initialValue, name]);
+
+  const setPersistedState = useCallback(
+    (nextState: SetStateAction<T>) => {
+      setState(prevState => {
+        const newState =
+          nextState instanceof Function ? nextState(prevState) : nextState;
+
+        storage.setItem(name, newState);
+
+        // Inform other instances in the current tab
+        emitInstances<T>(name, setState, newState);
+
+        return newState;
+      });
+    },
+
+    [name, storage],
+  );
+
+  return [state, setPersistedState];
+};

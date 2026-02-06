@@ -1,0 +1,38 @@
+<div align="center">
+
+# UtilityJS | useOnOutsideClick
+
+A React hook that invokes a callback when user clicks outside of the target
+element.
+
+</div>
+
+<hr />
+
+## Features
+
+...
+
+## Installation
+
+...
+
+## Usage
+
+...
+
+## API
+
+...
+
+## Contributing
+
+Read the
+[contributing guide](https://github.com/mimshins/utilityjs/blob/main/CONTRIBUTING.md)
+to learn about our development process, how to propose bug fixes and
+improvements, and how to build and test your changes.
+
+## License
+
+This project is licensed under the terms of the
+[MIT license](https://github.com/mimshins/utilityjs/blob/main/LICENSE).
