@@ -29,10 +29,14 @@ export class Edge<T> {
     key: string | null = null,
   ) {
     if (typeof vA === "undefined")
-      throw new Error("The graph edge must have a valid start vertex.");
+      throw new Error(
+        "[@utilityjs/graph]: The graph edge must have a valid start vertex.",
+      );
 
     if (typeof vB === "undefined")
-      throw new Error("The graph edge must have a valid end vertex.");
+      throw new Error(
+        "[@utilityjs/graph]: The graph edge must have a valid end vertex.",
+      );
 
     this._vA = vA;
     this._vB = vB;

@@ -22,7 +22,9 @@ export class Vertex<T> {
    */
   constructor(value: T, key: string | null = null) {
     if (typeof value === "undefined") {
-      throw new Error("The graph vertex must have a valid value.");
+      throw new Error(
+        "[@utilityjs/graph]: The graph vertex must have a valid value.",
+      );
     }
 
     this._key = key;

@@ -68,11 +68,15 @@ export default class DisjointSet<T> {
     const rootKeyB = this.find(valueB);
 
     if (rootKeyA === null) {
-      throw new Error(`${String(valueA)} isn't in any set.`);
+      throw new Error(
+        `[@utilityjs/disjoint-set]: ${String(valueA)} isn't in any set.`,
+      );
     }
 
     if (rootKeyB === null) {
-      throw new Error(`${String(valueB)} isn't in any set.`);
+      throw new Error(
+        `[@utilityjs/disjoint-set]: ${String(valueB)} isn't in any set.`,
+      );
     }
 
     if (rootKeyA === rootKeyB) return this;
@@ -104,11 +108,15 @@ export default class DisjointSet<T> {
     const rootKeyB = this.find(valueB);
 
     if (rootKeyA === null) {
-      throw new Error(`${String(valueA)} isn't in any set.`);
+      throw new Error(
+        `[@utilityjs/disjoint-set]: ${String(valueA)} isn't in any set.`,
+      );
     }
 
     if (rootKeyB === null) {
-      throw new Error(`${String(valueB)} isn't in any set.`);
+      throw new Error(
+        `[@utilityjs/disjoint-set]: ${String(valueB)} isn't in any set.`,
+      );
     }
 
     return rootKeyA === rootKeyB;

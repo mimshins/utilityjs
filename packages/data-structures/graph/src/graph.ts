@@ -179,7 +179,11 @@ export class Graph<T> {
     } else if (typeof vB !== "undefined") {
       _vA = vAOrEdge;
       _vB = vB;
-    } else throw new Error("The second argument must be a valid graph vertex.");
+    } else {
+      throw new Error(
+        "[@utilityjs/graph]: The second argument must be a valid graph vertex.",
+      );
+    }
 
     const startVertex = this.getVertex(_vA.getKey());
 
