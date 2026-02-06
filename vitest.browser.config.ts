@@ -1,10 +1,12 @@
+import reactPlugin from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
 const config = defineConfig({
-  plugins: [tsconfigPaths()],
+  plugins: [reactPlugin(), tsconfigPaths()],
   test: {
     environment: "jsdom",
+    setupFiles: ["browser.setup.ts"],
     include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
     coverage: {
       enabled: true,
