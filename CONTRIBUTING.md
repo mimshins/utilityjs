@@ -2,9 +2,9 @@
 
 If you're reading this, you're definitely awesome! <br /> The following is a set
 of guidelines for contributing to ClientSocketManager, which are hosted in the
-[GitHub](https://github.com/mimshins/utilityjs). These are mostly guidelines, not
-rules. Use your best judgment, and feel free to propose changes to this document
-in a pull request.
+[GitHub](https://github.com/mimshins/utilityjs). These are mostly guidelines,
+not rules. Use your best judgment, and feel free to propose changes to this
+document in a pull request.
 
 ## Code of Conduct
 
