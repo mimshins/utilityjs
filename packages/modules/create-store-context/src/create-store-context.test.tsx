@@ -145,7 +145,7 @@ describe("createStoreContext", () => {
       const { StoreProvider, useStore } = createStoreContext<{
         value: number;
         double: () => number;
-      }>((setState, getState) => ({
+      }>((_, getState) => ({
         value: 5,
         double: () => getState().value * 2,
       }));
