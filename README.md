@@ -8,10 +8,6 @@ A collection of useful utility Classes, Functions, React Hooks and Components.
 
 <hr />
 
-## Packages
-
-- [@utilityjs/x](https://github.com/mimshins/utilityjs/blob/main/packages/browser/README.md)
-
 ## Contributing
 
 Read the
