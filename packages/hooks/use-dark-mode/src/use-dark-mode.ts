@@ -3,13 +3,13 @@ import {
   usePersistedState,
   type DataStorage,
 } from "@utilityjs/use-persisted-state";
-import { useCallback, useEffect, useLayoutEffect } from "react";
-import { addClassName, removeClassName } from "./utils.ts";
-
-/* v8 ignore start - SSR branch */
-const useIsomorphicLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect;
-/* v8 ignore stop */
+import { useCallback } from "react";
+import { DEFAULT_STORAGE } from "./constants.ts";
+import {
+  addClassName,
+  removeClassName,
+  useIsomorphicLayoutEffect,
+} from "./utils.ts";
 
 /**
  * Configuration options for the useDarkMode hook.
@@ -43,29 +43,6 @@ export type Options = {
    */
   storage?: DataStorage<boolean>;
 };
-
-/* v8 ignore start - DEFAULT_STORAGE is a simple localStorage wrapper, tested via integration */
-const DEFAULT_STORAGE: DataStorage<boolean> = {
-  getItem(key) {
-    const item = window.localStorage.getItem(key);
-
-    if (item === null) return null;
-
-    return Boolean(item);
-  },
-  setItem(key, value) {
-    try {
-      window.localStorage.setItem(key, JSON.stringify(value));
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(
-        `[@utilityjs/use-dark-mode]: Failed to set item for key "${key}".`,
-        e,
-      );
-    }
-  },
-};
-/* v8 ignore stop */
 
 /**
  * A React hook for managing dark mode state with persistence and system preference detection.
@@ -108,7 +85,7 @@ export const useDarkMode = (
     storage = DEFAULT_STORAGE,
     storageKey = "utilityjs-dark-mode",
     toggleClassName = "dark-mode",
-  } = options || {};
+  } = options ?? {};
 
   const [prefersDark] = useMediaQuery("(prefers-color-scheme: dark)");
 

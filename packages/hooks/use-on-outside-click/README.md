@@ -11,7 +11,7 @@ element.
 
 ## Features
 
-- **Flexible Target Support**: Works with refs, direct elements, or null values
+- **Ref Callback Pattern**: Returns a ref callback to attach to your element
 - **SSR Safe**: Handles server-side rendering gracefully
 - **Conditional Logic**: Optional condition function for additional control
 - **Performance Optimized**: Uses stable callback references
@@ -36,18 +36,16 @@ pnpm add @utilityjs/use-on-outside-click
 
 ```tsx
 import { useOnOutsideClick } from "@utilityjs/use-on-outside-click";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 function Dropdown() {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useOnOutsideClick(dropdownRef, () => {
+  const ref = useOnOutsideClick(() => {
     setIsOpen(false);
   });
 
   return (
-    <div ref={dropdownRef}>
+    <div ref={ref}>
       <button onClick={() => setIsOpen(!isOpen)}>Toggle Dropdown</button>
       {isOpen && (
         <div className="dropdown-menu">
@@ -65,7 +63,6 @@ function Dropdown() {
 
 ```tsx
 import { useOnOutsideClick } from "@utilityjs/use-on-outside-click";
-import { useRef } from "react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -74,16 +71,14 @@ interface ModalProps {
 }
 
 function Modal({ isOpen, onClose, children }: ModalProps) {
-  const modalRef = useRef<HTMLDivElement>(null);
-
-  useOnOutsideClick(modalRef, onClose);
+  const ref = useOnOutsideClick(onClose);
 
   if (!isOpen) return null;
 
   return (
     <div className="modal-overlay">
       <div
-        ref={modalRef}
+        ref={ref}
         className="modal-content"
       >
         <button
@@ -121,7 +116,7 @@ function App() {
 
 ```tsx
 import { useOnOutsideClick } from "@utilityjs/use-on-outside-click";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 function ContextMenu() {
   const [contextMenu, setContextMenu] = useState<{
@@ -130,9 +125,7 @@ function ContextMenu() {
     show: boolean;
   }>({ x: 0, y: 0, show: false });
 
-  const menuRef = useRef<HTMLDivElement>(null);
-
-  useOnOutsideClick(menuRef, () => {
+  const ref = useOnOutsideClick(() => {
     setContextMenu(prev => ({ ...prev, show: false }));
   });
 
@@ -163,7 +156,7 @@ function ContextMenu() {
 
       {contextMenu.show && (
         <div
-          ref={menuRef}
+          ref={ref}
           style={{
             position: "fixed",
             left: contextMenu.x,
@@ -190,7 +183,7 @@ function ContextMenu() {
 
 ```tsx
 import { useOnOutsideClick } from "@utilityjs/use-on-outside-click";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 function Tooltip({
   children,
@@ -200,15 +193,13 @@ function Tooltip({
   content: string;
 }) {
   const [isVisible, setIsVisible] = useState(false);
-  const tooltipRef = useRef<HTMLDivElement>(null);
-
-  useOnOutsideClick(tooltipRef, () => {
+  const ref = useOnOutsideClick(() => {
     setIsVisible(false);
   });
 
   return (
     <div
-      ref={tooltipRef}
+      ref={ref}
       style={{ position: "relative", display: "inline-block" }}
     >
       <div onClick={() => setIsVisible(!isVisible)}>{children}</div>
@@ -251,15 +242,13 @@ function App() {
 
 ```tsx
 import { useOnOutsideClick } from "@utilityjs/use-on-outside-click";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 function ConditionalDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLocked, setIsLocked] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useOnOutsideClick(
-    dropdownRef,
+  const ref = useOnOutsideClick(
     () => {
       setIsOpen(false);
     },
@@ -271,7 +260,7 @@ function ConditionalDropdown() {
   );
 
   return (
-    <div ref={dropdownRef}>
+    <div ref={ref}>
       <button onClick={() => setIsOpen(!isOpen)}>Toggle Dropdown</button>
 
       <label>
@@ -299,21 +288,18 @@ function ConditionalDropdown() {
 
 ```tsx
 import { useOnOutsideClick } from "@utilityjs/use-on-outside-click";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 function MultipleDropdowns() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
-  const dropdown1Ref = useRef<HTMLDivElement>(null);
-  const dropdown2Ref = useRef<HTMLDivElement>(null);
-
-  useOnOutsideClick(dropdown1Ref, () => {
+  const ref1 = useOnOutsideClick(() => {
     if (openDropdown === "dropdown1") {
       setOpenDropdown(null);
     }
   });
 
-  useOnOutsideClick(dropdown2Ref, () => {
+  const ref2 = useOnOutsideClick(() => {
     if (openDropdown === "dropdown2") {
       setOpenDropdown(null);
     }
@@ -321,7 +307,7 @@ function MultipleDropdowns() {
 
   return (
     <div style={{ display: "flex", gap: "20px" }}>
-      <div ref={dropdown1Ref}>
+      <div ref={ref1}>
         <button onClick={() => setOpenDropdown("dropdown1")}>Dropdown 1</button>
         {openDropdown === "dropdown1" && (
           <div className="dropdown-menu">
@@ -331,7 +317,7 @@ function MultipleDropdowns() {
         )}
       </div>
 
-      <div ref={dropdown2Ref}>
+      <div ref={ref2}>
         <button onClick={() => setOpenDropdown("dropdown2")}>Dropdown 2</button>
         {openDropdown === "dropdown2" && (
           <div className="dropdown-menu">
@@ -347,27 +333,22 @@ function MultipleDropdowns() {
 
 ## API
 
-### `useOnOutsideClick<T>(target, callback, extendCondition?)`
+### `useOnOutsideClick<T>(callback, shouldTrigger?)`
 
 A React hook that detects clicks outside of a target element.
 
 #### Parameters
 
-- `target: RefObject<T> | T | null` - The target element to monitor. Can be:
-  - A React ref object (`useRef` result)
-  - A direct HTML element
-  - `null` (hook will be inactive)
-
 - `callback: (event: MouseEvent) => void` - Function called when clicking
   outside the target
 
-- `extendCondition?: (event: MouseEvent) => boolean` - Optional condition
-  function that must return `true` for the callback to be invoked (default:
-  `() => true`)
+- `shouldTrigger?: (event: MouseEvent) => boolean` - Optional condition function
+  that must return `true` for the callback to be invoked (default: `() => true`)
 
 #### Returns
 
-- `void` - This hook doesn't return anything
+- `(node: T | null) => void` - A ref callback function to attach to the target
+  element
 
 #### Behavior
 
@@ -385,6 +366,7 @@ This hook depends on:
 
 - `@utilityjs/use-event-listener` - For efficient event listener management
 - `@utilityjs/use-get-latest` - For stable callback references
+- `@utilityjs/use-register-node-ref` - For ref callback pattern
 
 ## Use Cases
 

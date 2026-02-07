@@ -25,7 +25,7 @@ describe("createPubSub", () => {
       pubSub.useSubscribe("test-channel", callback);
     });
 
-    pubSub.publish("test-channel");
+    pubSub.publish("test-channel", undefined);
 
     expect(callback).toHaveBeenCalledTimes(1);
   });
@@ -42,7 +42,7 @@ describe("createPubSub", () => {
       pubSub.useSubscribe("test-channel", callback2);
     });
 
-    pubSub.publish("test-channel");
+    pubSub.publish("test-channel", undefined);
 
     expect(callback1).toHaveBeenCalledTimes(1);
     expect(callback2).toHaveBeenCalledTimes(1);
@@ -60,12 +60,12 @@ describe("createPubSub", () => {
       pubSub.useSubscribe("channel-2", callback2);
     });
 
-    pubSub.publish("channel-1");
+    pubSub.publish("channel-1", undefined);
 
     expect(callback1).toHaveBeenCalledTimes(1);
     expect(callback2).not.toHaveBeenCalled();
 
-    pubSub.publish("channel-2");
+    pubSub.publish("channel-2", undefined);
 
     expect(callback1).toHaveBeenCalledTimes(1);
     expect(callback2).toHaveBeenCalledTimes(1);
@@ -78,12 +78,12 @@ describe("createPubSub", () => {
       pubSub.useSubscribe("test-channel", callback);
     });
 
-    pubSub.publish("test-channel");
+    pubSub.publish("test-channel", undefined);
     expect(callback).toHaveBeenCalledTimes(1);
 
     unmount();
 
-    pubSub.publish("test-channel");
+    pubSub.publish("test-channel", undefined);
     expect(callback).toHaveBeenCalledTimes(1); // Should not be called again
   });
 
@@ -94,12 +94,12 @@ describe("createPubSub", () => {
       pubSub.useSubscribe("test-channel", callback);
     });
 
-    pubSub.publish("test-channel");
+    pubSub.publish("test-channel", undefined);
     expect(callback).toHaveBeenCalledTimes(1);
 
     pubSub.unsubscribe("test-channel", callback);
 
-    pubSub.publish("test-channel");
+    pubSub.publish("test-channel", undefined);
     expect(callback).toHaveBeenCalledTimes(1); // Should not be called again
   });
 
@@ -113,7 +113,7 @@ describe("createPubSub", () => {
 
   it("should handle publish to non-existent channel", () => {
     expect(() => {
-      pubSub.publish("non-existent");
+      pubSub.publish("non-existent", undefined);
     }).not.toThrow();
   });
 
@@ -129,7 +129,7 @@ describe("createPubSub", () => {
       pubSub.useSubscribe("test-channel", callback);
     });
 
-    pubSub.publish("test-channel");
+    pubSub.publish("test-channel", undefined);
 
     // Should only be called once despite double subscription
     expect(callback).toHaveBeenCalledTimes(1);
@@ -146,13 +146,13 @@ describe("createPubSub", () => {
       { initialProps: { cb: callback1 } },
     );
 
-    pubSub.publish("test-channel");
+    pubSub.publish("test-channel", undefined);
     expect(callback1).toHaveBeenCalledTimes(1);
     expect(callback2).not.toHaveBeenCalled();
 
     rerender({ cb: callback2 });
 
-    pubSub.publish("test-channel");
+    pubSub.publish("test-channel", undefined);
     expect(callback1).toHaveBeenCalledTimes(1); // Should not be called again
     expect(callback2).toHaveBeenCalledTimes(1);
   });
@@ -167,15 +167,15 @@ describe("createPubSub", () => {
       { initialProps: { channel: "channel-1" } },
     );
 
-    pubSub.publish("channel-1");
+    pubSub.publish("channel-1", undefined);
     expect(callback).toHaveBeenCalledTimes(1);
 
     rerender({ channel: "channel-2" });
 
-    pubSub.publish("channel-1");
+    pubSub.publish("channel-1", undefined);
     expect(callback).toHaveBeenCalledTimes(1); // Should not be called
 
-    pubSub.publish("channel-2");
+    pubSub.publish("channel-2", undefined);
     expect(callback).toHaveBeenCalledTimes(2);
   });
 
@@ -196,12 +196,12 @@ describe("createPubSub", () => {
     });
 
     // Publish to global
-    pubSub.publish("test-channel");
+    pubSub.publish("test-channel", undefined);
     expect(globalCallback).toHaveBeenCalledTimes(1);
     expect(scopedCallback).not.toHaveBeenCalled();
 
     // Publish to scoped
-    scopedPubSub.publish("test-channel");
+    scopedPubSub.publish("test-channel", undefined);
     expect(globalCallback).toHaveBeenCalledTimes(1);
     expect(scopedCallback).toHaveBeenCalledTimes(1);
   });
@@ -220,7 +220,7 @@ describe("createPubSub", () => {
 
     pubSub.unsubscribe("test-channel", callback1);
 
-    pubSub.publish("test-channel");
+    pubSub.publish("test-channel", undefined);
 
     expect(callback1).not.toHaveBeenCalled();
     expect(callback2).toHaveBeenCalledTimes(1);
@@ -236,7 +236,7 @@ describe("createPubSub", () => {
     pubSub.unsubscribe("test-channel", callback);
     pubSub.unsubscribe("test-channel", callback); // Second call should not error
 
-    pubSub.publish("test-channel");
+    pubSub.publish("test-channel", undefined);
     expect(callback).not.toHaveBeenCalled();
   });
 
@@ -247,7 +247,7 @@ describe("createPubSub", () => {
       pubSub.useSubscribe("", callback);
     });
 
-    pubSub.publish("");
+    pubSub.publish("", undefined);
     expect(callback).toHaveBeenCalledTimes(1);
   });
 
@@ -266,7 +266,7 @@ describe("createPubSub", () => {
     // Unsubscribe from channel-1 should not affect channel-2
     pubSub.unsubscribe("channel-1", callback1);
 
-    pubSub.publish("channel-2");
+    pubSub.publish("channel-2", undefined);
     expect(callback1).not.toHaveBeenCalled();
     expect(callback2).toHaveBeenCalledTimes(1);
   });

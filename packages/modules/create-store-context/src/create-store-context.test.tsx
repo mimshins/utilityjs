@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import createStoreContext from "./create-store-context.tsx";
+import { createStoreContext } from "./create-store-context.tsx";
 
 type TestStore = {
   count: number;

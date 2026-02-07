@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 /**
  * Global handoff state to track SSR completion across all hook instances.
  */
-const __handoff__ = { isComplete: false };
+const __GLOBAL_HANDOFF__ = { isComplete: false };
 
 /**
  * A React hook that returns `true` if the SSR handoff completes.
@@ -31,13 +31,13 @@ const __handoff__ = { isComplete: false };
  * ```
  */
 export const useIsServerHandoffComplete = (): boolean => {
-  const [isComplete, setIsComplete] = useState(__handoff__.isComplete);
+  const [isComplete, setIsComplete] = useState(__GLOBAL_HANDOFF__.isComplete);
 
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => void (!isComplete && setIsComplete(true)), [isComplete]);
 
   useEffect(() => {
-    if (!__handoff__.isComplete) __handoff__.isComplete = true;
+    if (!__GLOBAL_HANDOFF__.isComplete) __GLOBAL_HANDOFF__.isComplete = true;
   }, []);
 
   return isComplete;

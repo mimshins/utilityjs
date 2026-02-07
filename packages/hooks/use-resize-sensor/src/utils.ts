@@ -16,7 +16,7 @@ export const setRefreshRate = (
   cb: ResizeObserverCallback,
   refreshOptions?: RefreshOptions,
 ): Debounced<ResizeObserverCallback> | ResizeObserverCallback => {
-  const { mode, rate = 250, leading, trailing } = refreshOptions || {};
+  const { mode, rate = 250, leading, trailing } = refreshOptions ?? {};
 
   switch (mode) {
     case "debounce": {

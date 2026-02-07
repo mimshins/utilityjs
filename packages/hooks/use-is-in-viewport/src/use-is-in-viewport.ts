@@ -9,17 +9,30 @@ import {
 
 /** Options for configuring viewport detection behavior */
 export type Options = {
-  /** Whether to stop observing after the first intersection */
+  /**
+   * Whether to stop observing after the first intersection.
+   *
+   * @default false
+   */
   once?: boolean;
-  /** Whether to disable the viewport detection */
+
+  /**
+   * Whether to disable the viewport detection.
+   *
+   * @default false
+   */
   disabled?: boolean;
 };
 
 /** Return type of the useIsInViewport hook */
 export type Consumer = {
-  /** Function to register a DOM node for viewport observation */
+  /**
+   * Function to register a DOM node for viewport observation
+   */
   registerNode: ReturnType<typeof useRegisterNodeRef>;
-  /** Boolean indicating if the element is currently in the viewport */
+  /**
+   * Boolean indicating if the element is currently in the viewport
+   */
   isInViewport: boolean;
 };
 
@@ -78,7 +91,7 @@ export const useIsInViewport = (
     rootMargin = "0px",
     once = false,
     disabled = false,
-  } = options || {};
+  } = options ?? {};
 
   const [isInViewport, setIsInViewport] = useState(false);
 
@@ -92,12 +105,17 @@ export const useIsInViewport = (
           if (isIntersected && once) observer?.unobserve();
           setIsInViewport(inViewState);
         },
-        { threshold, root, rootMargin },
+        {
+          threshold,
+          root,
+          rootMargin,
+        },
       );
 
       if (!observer) return;
 
       observer.observe();
+
       return () => void observer.unobserve();
     },
     [disabled],

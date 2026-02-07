@@ -10,6 +10,17 @@ vi.mock("@utilityjs/use-get-latest", () => ({
   useGetLatest: (value: unknown) => ({ current: value }),
 }));
 
+vi.mock("@utilityjs/use-register-node-ref", () => ({
+  useRegisterNodeRef: <T extends HTMLElement>(
+    subscriber: (node: T) => void,
+    _deps: unknown[],
+  ) => {
+    return (node: T | null) => {
+      subscriber(node as T);
+    };
+  },
+}));
+
 const mockUseEventListener = vi.mocked(
   await import("@utilityjs/use-event-listener"),
 ).useEventListener;
@@ -28,7 +39,7 @@ const createClickEvent = (target: EventTarget) => {
 };
 
 describe("useOnOutsideClick", () => {
-  let callback: (event: MouseEvent) => void;
+  let callback: ReturnType<typeof vi.fn<(event: MouseEvent) => void>>;
   let element: HTMLDivElement;
 
   beforeEach(() => {
@@ -42,7 +53,7 @@ describe("useOnOutsideClick", () => {
   });
 
   it("should register a click listener on document", () => {
-    renderHook(() => useOnOutsideClick({ current: element }, callback));
+    renderHook(() => useOnOutsideClick(callback));
 
     expect(mockUseEventListener).toHaveBeenCalledWith({
       target: document,
@@ -52,18 +63,10 @@ describe("useOnOutsideClick", () => {
     });
   });
 
-  it("should call callback when clicking outside the element (ref)", () => {
-    renderHook(() => useOnOutsideClick({ current: element }, callback));
+  it("should call callback when clicking outside the element", () => {
+    const { result } = renderHook(() => useOnOutsideClick(callback));
 
-    const outside = document.createElement("div");
-
-    getHandler()(createClickEvent(outside));
-
-    expect(callback).toHaveBeenCalledTimes(1);
-  });
-
-  it("should call callback when clicking outside the element (direct element)", () => {
-    renderHook(() => useOnOutsideClick(element, callback));
+    result.current(element);
 
     const outside = document.createElement("div");
 
@@ -73,7 +76,9 @@ describe("useOnOutsideClick", () => {
   });
 
   it("should not call callback when clicking on the element itself", () => {
-    renderHook(() => useOnOutsideClick({ current: element }, callback));
+    const { result } = renderHook(() => useOnOutsideClick(callback));
+
+    result.current(element);
 
     getHandler()(createClickEvent(element));
 
@@ -81,19 +86,21 @@ describe("useOnOutsideClick", () => {
   });
 
   it("should not call callback when clicking on a child element", () => {
+    const { result } = renderHook(() => useOnOutsideClick(callback));
     const child = document.createElement("span");
 
     element.appendChild(child);
-
-    renderHook(() => useOnOutsideClick({ current: element }, callback));
+    result.current(element);
 
     getHandler()(createClickEvent(child));
 
     expect(callback).not.toHaveBeenCalled();
   });
 
-  it("should not call callback when target is null", () => {
-    renderHook(() => useOnOutsideClick(null, callback));
+  it("should not call callback when element is null", () => {
+    const { result } = renderHook(() => useOnOutsideClick(callback));
+
+    result.current(null);
 
     const outside = document.createElement("div");
 
@@ -102,43 +109,30 @@ describe("useOnOutsideClick", () => {
     expect(callback).not.toHaveBeenCalled();
   });
 
-  it("should not call callback when ref.current is null", () => {
-    renderHook(() =>
-      useOnOutsideClick(
-        { current: null } as unknown as React.RefObject<HTMLElement>,
-        callback,
-      ),
+  it("should respect shouldTrigger returning true", () => {
+    const shouldTrigger = vi.fn().mockReturnValue(true);
+    const { result } = renderHook(() =>
+      useOnOutsideClick(callback, shouldTrigger),
     );
 
-    const outside = document.createElement("div");
-
-    getHandler()(createClickEvent(outside));
-
-    expect(callback).not.toHaveBeenCalled();
-  });
-
-  it("should respect extendCondition returning true", () => {
-    const extendCondition = vi.fn().mockReturnValue(true);
-
-    renderHook(() =>
-      useOnOutsideClick({ current: element }, callback, extendCondition),
-    );
+    result.current(element);
 
     const outside = document.createElement("div");
     const event = createClickEvent(outside);
 
     getHandler()(event);
 
-    expect(extendCondition).toHaveBeenCalledWith(event);
+    expect(shouldTrigger).toHaveBeenCalledWith(event);
     expect(callback).toHaveBeenCalledWith(event);
   });
 
-  it("should respect extendCondition returning false", () => {
-    const extendCondition = vi.fn().mockReturnValue(false);
-
-    renderHook(() =>
-      useOnOutsideClick({ current: element }, callback, extendCondition),
+  it("should respect shouldTrigger returning false", () => {
+    const shouldTrigger = vi.fn().mockReturnValue(false);
+    const { result } = renderHook(() =>
+      useOnOutsideClick(callback, shouldTrigger),
     );
+
+    result.current(element);
 
     const outside = document.createElement("div");
 
@@ -148,13 +142,13 @@ describe("useOnOutsideClick", () => {
   });
 
   it("should not call callback when clicking on deeply nested child", () => {
+    const { result } = renderHook(() => useOnOutsideClick(callback));
     const child = document.createElement("span");
     const grandchild = document.createElement("button");
 
     element.appendChild(child);
     child.appendChild(grandchild);
-
-    renderHook(() => useOnOutsideClick({ current: element }, callback));
+    result.current(element);
 
     getHandler()(createClickEvent(grandchild));
 
@@ -162,7 +156,9 @@ describe("useOnOutsideClick", () => {
   });
 
   it("should call callback with the click event", () => {
-    renderHook(() => useOnOutsideClick({ current: element }, callback));
+    const { result } = renderHook(() => useOnOutsideClick(callback));
+
+    result.current(element);
 
     const outside = document.createElement("div");
     const event = createClickEvent(outside);
@@ -170,5 +166,42 @@ describe("useOnOutsideClick", () => {
     getHandler()(event);
 
     expect(callback).toHaveBeenCalledWith(event);
+  });
+
+  it("should update element ref when ref callback is called multiple times", () => {
+    const { result } = renderHook(() => useOnOutsideClick(callback));
+    const element1 = document.createElement("div");
+    const element2 = document.createElement("div");
+
+    result.current(element1);
+
+    const outside = document.createElement("div");
+
+    getHandler()(createClickEvent(outside));
+    expect(callback).toHaveBeenCalledTimes(1);
+
+    callback.mockClear();
+    result.current(element2);
+
+    getHandler()(createClickEvent(outside));
+    expect(callback).toHaveBeenCalledTimes(1);
+  });
+
+  it("should not call callback when clicking outside after element is set to null", () => {
+    const { result } = renderHook(() => useOnOutsideClick(callback));
+
+    result.current(element);
+
+    const outside = document.createElement("div");
+
+    getHandler()(createClickEvent(outside));
+    expect(callback).toHaveBeenCalledTimes(1);
+
+    callback.mockClear();
+    result.current(null);
+
+    getHandler()(createClickEvent(outside));
+
+    expect(callback).not.toHaveBeenCalled();
   });
 });
