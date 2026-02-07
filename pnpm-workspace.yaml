@@ -1,0 +1,8 @@
+packages:
+  - packages/data-structures/*
+  - packages/modules/*
+  - packages/hooks/*
+
+ignoredBuiltDependencies:
+  - esbuild
+  - unrs-resolver

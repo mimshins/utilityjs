@@ -1,0 +1,46 @@
+{
+  "name": "@utilityjs/comparator",
+  "version": "1.0.1",
+  "description": "A utility class that compares its comparable arguments.",
+  "license": "MIT",
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/data-structures/comparator",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mimshins/utilityjs.git",
+    "directory": "packages/data-structures/comparator"
+  },
+  "bugs": {
+    "url": "https://github.com/mimshins/utilityjs/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "compare function",
+    "comparator",
+    "compare class",
+    "class",
+    "comparator class"
+  ],
+  "scripts": {
+    "clear": "shx rm -rf dist",
+    "test": "vitest run --config ../../../vitest.node.config.ts --root .",
+    "test:watch": "vitest --config ../../../vitest.node.config.ts  --root .",
+    "bundle": "tsdown",
+    "build": "run-s clear bundle",
+    "release": "pnpm publish . --tag latest --access public --no-git-checks"
+  }
+}

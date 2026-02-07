@@ -1,0 +1,53 @@
+{
+  "name": "@utilityjs/use-on-change",
+  "version": "1.0.3",
+  "description": "A React hook that invokes a callback anytime a value changes.",
+  "license": "MIT",
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/hooks/use-on-change",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mimshins/utilityjs.git",
+    "directory": "packages/hooks/use-on-change"
+  },
+  "bugs": {
+    "url": "https://github.com/mimshins/utilityjs/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "react",
+    "react hook",
+    "onchange",
+    "change",
+    "use onchange"
+  ],
+  "scripts": {
+    "clear": "shx rm -rf dist",
+    "test": "vitest run --config ../../../vitest.browser.config.ts --root .",
+    "test:watch": "vitest --config ../../../vitest.browser.config.ts  --root .",
+    "bundle": "tsdown",
+    "build": "run-s clear bundle",
+    "release": "pnpm publish . --tag latest --access public --no-git-checks"
+  },
+  "peerDependencies": {
+    "react": ">=16.8"
+  },
+  "dependencies": {
+    "@utilityjs/use-get-latest": "workspace:*",
+    "@utilityjs/use-previous-value": "workspace:*"
+  }
+}

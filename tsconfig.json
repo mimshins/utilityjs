@@ -1,64 +1,46 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
-    "target": "ES5",
-    "outDir": "./dist/esm",
-    "lib": ["DOM.Iterable", "DOM", "ES2017"],
-    "jsx": "react-jsx",
-    "tsBuildInfoFile": ".tsbuildinfo",
-    "incremental": true,
-    "pretty": true,
-    "esModuleInterop": true,
-    "moduleResolution": "Node",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noImplicitOverride": true,
-    "noFallthroughCasesInSwitch": true,
-    "forceConsistentCasingInFileNames": true,
-    "exactOptionalPropertyTypes": true,
-    "strict": true,
-    "declaration": true,
+    "target": "ES2017",
+    "module": "node20",
+    "moduleResolution": "nodenext",
     "skipLibCheck": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "allowJs": true,
-    "types": ["node", "react", "react-dom"],
+    "moduleDetection": "force",
+    "verbatimModuleSyntax": true,
+    "allowJs": false,
+    "checkJs": false,
+    "jsx": "react-jsx",
+
+    "noEmit": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "noEmitOnError": true,
+    "incremental": true,
+
+    "strict": true,
+    "pretty": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "rewriteRelativeImportExtensions": true,
+    "erasableSyntaxOnly": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noUncheckedIndexedAccess": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedSideEffectImports": true,
+
     "paths": {
-      "@utilityjs/use-get-latest": ["./src/hook/useGetLatest"],
-      "@utilityjs/use-get-latest/*": ["./src/hook/useGetLatest/*"],
-      "@utilityjs/use-previous-value": ["./src/hook/usePreviousValue"],
-      "@utilityjs/use-previous-value/*": ["./src/hook/usePreviousValue/*"],
-      "@utilityjs/use-event-listener": ["./src/hook/useEventListener"],
-      "@utilityjs/use-event-listener/*": ["./src/hook/useEventListener/*"],
-      "@utilityjs/use-get-scrollbar-width": [
-        "./src/hook/useGetScrollbarWidth/"
-      ],
-      "@utilityjs/use-get-scrollbar-width/*": [
-        "./src/hook/useGetScrollbarWidth/*"
-      ],
-      "@utilityjs/use-register-node-ref": ["./src/hook/useRegisterNodeRef/"],
-      "@utilityjs/use-register-node-ref/*": ["./src/hook/useRegisterNodeRef/*"],
-      "@utilityjs/use-persisted-state": ["./src/hook/usePersistedState/"],
-      "@utilityjs/use-persisted-state/*": ["./src/hook/usePersistedState/*"],
-      "@utilityjs/use-media-query": ["./src/hook/useMediaQuery/"],
-      "@utilityjs/use-media-query/*": ["./src/hook/useMediaQuery/*"],
-      "@utilityjs/use-lazy-initialized-value": [
-        "./src/hook/useLazyInitializedValue/"
-      ],
-      "@utilityjs/use-lazy-initialized-value/*": [
-        "./src/hook/useLazyInitializedValue/*"
-      ],
-      "@utilityjs/comparator": ["./src/data-structure/Comparator"],
-      "@utilityjs/comparator/*": ["./src/data-structure/Comparator/*"],
-      "@utilityjs/heap": ["./src/data-structure/Heap"],
-      "@utilityjs/heap/*": ["./src/data-structure/Heap/*"],
-      "@utilityjs/min-heap": ["./src/data-structure/MinHeap"],
-      "@utilityjs/min-heap/*": ["./src/data-structure/MinHeap/*"],
-      "@utilityjs/linked-list": ["./src/data-structure/LinkedList"],
-      "@utilityjs/linked-list/*": ["./src/data-structure/LinkedList/*"]
+      "@utilityjs/*": [
+        "./packages/hooks/*/src/index.ts",
+        "./packages/data-structures/*/src/index.ts",
+        "./packages/functions/*/src/index.ts"
+      ]
     }
   },
-  "include": ["src"],
-  "exclude": ["dist", "node_modules"]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "dist"]
 }

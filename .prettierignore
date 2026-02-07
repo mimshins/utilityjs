@@ -1,0 +1,7 @@
+.changeset/**/*.md
+!.changeset/**/README.md
+**/CHANGELOG.md
+**/dist
+**/node_modules
+pnpm-lock.*
+LICENSE

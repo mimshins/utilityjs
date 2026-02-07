@@ -1,0 +1,52 @@
+{
+  "name": "@utilityjs/use-media-query",
+  "version": "1.0.1",
+  "description": "A React hook that helps detect whether media queries individually match.",
+  "license": "MIT",
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/hooks/use-media-query",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mimshins/utilityjs.git",
+    "directory": "packages/hooks/use-media-query"
+  },
+  "bugs": {
+    "url": "https://github.com/mimshins/utilityjs/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "react",
+    "react hook",
+    "media",
+    "media query",
+    "match media",
+    "use media",
+    "use match media",
+    "use media query"
+  ],
+  "scripts": {
+    "clear": "shx rm -rf dist",
+    "test": "vitest run --config ../../../vitest.browser.config.ts --root .",
+    "test:watch": "vitest --config ../../../vitest.browser.config.ts  --root .",
+    "bundle": "tsdown",
+    "build": "run-s clear bundle",
+    "release": "pnpm publish . --tag latest --access public --no-git-checks"
+  },
+  "peerDependencies": {
+    "react": ">=16.8"
+  }
+}

@@ -1,17 +1,21 @@
 <div align="center">
-  <h1><img title="UtilityJS" alt="UtilityJS" src="https://raw.githubusercontent.com/mimshins/utilityjs/main/UtilityJs-wide.png" width="100%"></h1>
+
+# UtilityJS
+
+A collection of useful utility Classes, Functions, React Hooks and Components.
+
 </div>
+
+<hr />
 
 ## Contributing
 
-Please see our [CONTRIBUTING.md](https://github.com/mimshins/utilityjs/blob/main/CONTRIBUTING.md).
+Read the
+[contributing guide](https://github.com/mimshins/utilityjs/blob/main/CONTRIBUTING.md)
+to learn about our development process, how to propose bug fixes and
+improvements, and how to build and test your changes.
 
-## Community
+## License
 
-The UtilityJS community can be found on [Github Discussions](https://github.com/mimshins/utilityjs/discussions), where you can ask questions, voice ideas, and share your projects.
-
-Our [Code of Conduct](https://github.com/mimshins/utilityjs/blob/main/CODE_OF_CONDUCT.md) applies to all UtilityJS community channels.
-
-## Authors
-
-- Mostafa Shamsitabar ([Twitter](https://twitter.com/mimshins) | [Website](https://mimsh.in))
+This project is licensed under the terms of the
+[MIT license](https://github.com/mimshins/utilityjs/blob/main/LICENSE).

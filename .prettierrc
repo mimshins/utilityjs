@@ -1,11 +1,16 @@
 {
   "bracketSpacing": true,
-  "packageManager": "yarn",
   "printWidth": 80,
+  "proseWrap": "always",
   "semi": true,
   "singleQuote": false,
   "tabWidth": 2,
-  "useEditorConfig": true,
-  "trailingComma": "none",
-  "arrowParens": "avoid"
+  "trailingComma": "all",
+  "arrowParens": "avoid",
+  "bracketSameLine": false,
+  "endOfLine": "lf",
+  "htmlWhitespaceSensitivity": "css",
+  "jsxSingleQuote": false,
+  "singleAttributePerLine": true,
+  "plugins": ["prettier-plugin-organize-imports"]
 }

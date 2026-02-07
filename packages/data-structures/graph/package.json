@@ -1,0 +1,51 @@
+{
+  "name": "@utilityjs/graph",
+  "version": "1.2.1",
+  "description": "An implementation of Graph data structure.",
+  "license": "MIT",
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/data-structures/graph",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mimshins/utilityjs.git",
+    "directory": "packages/data-structures/graph"
+  },
+  "bugs": {
+    "url": "https://github.com/mimshins/utilityjs/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "data structure",
+    "algorithm",
+    "graph",
+    "weighted graph",
+    "unweighted graph",
+    "directed graph",
+    "undirected graph"
+  ],
+  "scripts": {
+    "clear": "shx rm -rf dist",
+    "test": "vitest run --config ../../../vitest.node.config.ts --root .",
+    "test:watch": "vitest --config ../../../vitest.node.config.ts  --root .",
+    "bundle": "tsdown",
+    "build": "run-s clear bundle",
+    "release": "pnpm publish . --tag latest --access public --no-git-checks"
+  },
+  "dependencies": {
+    "@utilityjs/linked-list": "workspace:*"
+  }
+}

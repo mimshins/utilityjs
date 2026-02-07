@@ -4,6 +4,7 @@ In order to make sure your PR is handled as smoothly as possible we request that
 -->
 
 - [ ] Related issues linked using `fixes #number`
-- [ ] Implements an existing feature request or RFC. Make sure the feature request has been accepted for implementation before opening a PR.
+- [ ] Implements an existing feature request or RFC. Make sure the feature
+      request has been accepted for implementation before opening a PR.
 - [ ] Documentation added
 - [ ] The linting passes

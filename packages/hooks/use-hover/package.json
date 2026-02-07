@@ -1,0 +1,53 @@
+{
+  "name": "@utilityjs/use-hover",
+  "version": "1.0.2",
+  "description": "A React hook that determines if the mouse is hovering an element.",
+  "license": "MIT",
+  "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/hooks/use-hover",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mimshins/utilityjs.git",
+    "directory": "packages/hooks/use-hover"
+  },
+  "bugs": {
+    "url": "https://github.com/mimshins/utilityjs/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "react",
+    "react hook",
+    "ref callback",
+    "use hover hook",
+    "use mouse enter",
+    "use mouse leave"
+  ],
+  "scripts": {
+    "clear": "shx rm -rf dist",
+    "test": "vitest run --config ../../../vitest.browser.config.ts --root .",
+    "test:watch": "vitest --config ../../../vitest.browser.config.ts  --root .",
+    "bundle": "tsdown",
+    "build": "run-s clear bundle",
+    "release": "pnpm publish . --tag latest --access public --no-git-checks"
+  },
+  "peerDependencies": {
+    "react": ">=16.8"
+  },
+  "dependencies": {
+    "@utilityjs/use-register-node-ref": "workspace:*"
+  }
+}
