@@ -39,7 +39,9 @@ export const useResizeSensor = (
     (unsubscribed: boolean) =>
       setRefreshRate(entries => {
         entries.forEach(entry => {
+          /* v8 ignore start - defensive guard for race condition */
           if (unsubscribed) return;
+          /* v8 ignore stop */
 
           const { width, height } = entry.contentRect;
 

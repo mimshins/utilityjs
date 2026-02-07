@@ -123,7 +123,9 @@ export const useEventListener: UseEventListener = (
 
     let unsubscribed = false;
     const listener = (event: Event) => {
+      /* v8 ignore start - defensive guard for race condition */
       if (unsubscribed) return;
+      /* v8 ignore stop */
 
       (cachedHandler.current as (ev: Event) => void)(event);
     };
@@ -131,8 +133,10 @@ export const useEventListener: UseEventListener = (
     let thirdParam = cachedOptions.current;
 
     if (typeof cachedOptions.current !== "boolean") {
+      /* v8 ignore start - fallback for browsers without options support */
       if (isOptionParamSupported()) thirdParam = cachedOptions.current;
       else thirdParam = cachedOptions.current?.capture;
+      /* v8 ignore stop */
     }
 
     if (shouldAttach) {

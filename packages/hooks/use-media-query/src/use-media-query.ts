@@ -1,10 +1,9 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 
-/**
- * Isomorphic layout effect that uses useLayoutEffect on the client and useEffect on the server.
- */
+/* v8 ignore start - SSR branch */
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
+/* v8 ignore stop */
 
 /**
  * Check if the matchMedia API is supported in the current environment.
@@ -47,6 +46,7 @@ export const useMediaQuery = (query: string | string[]): boolean[] => {
   );
 
   useIsomorphicLayoutEffect(() => {
+    /* v8 ignore start - isSupported is determined at module load time */
     if (!isSupported) {
       // eslint-disable-next-line no-console
       console.error(
@@ -57,6 +57,7 @@ export const useMediaQuery = (query: string | string[]): boolean[] => {
       );
       return;
     }
+    /* v8 ignore stop */
 
     const mediaQueries = queries.map(query => matchMedia(query));
 

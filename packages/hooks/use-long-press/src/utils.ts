@@ -7,6 +7,7 @@ import type { Coordinates, TargetEvent } from "./types.ts";
  * @returns True if the event is a TouchEvent, false otherwise
  */
 export const isTouch = (event: Event): event is TouchEvent =>
+  /* v8 ignore next - TouchEvent is always defined in jsdom */
   TouchEvent ? event instanceof TouchEvent : "touches" in event;
 
 /**
@@ -29,5 +30,5 @@ export const calcPosition = (event: TargetEvent): Coordinates | null => {
     ? { x: event.touches[0]!.pageX, y: event.touches[0]!.pageY }
     : isMouse(event)
       ? { x: event.pageX, y: event.pageY }
-      : null;
+      : /* v8 ignore next - unreachable, callers guard for mouse/touch */ null;
 };

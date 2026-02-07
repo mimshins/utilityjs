@@ -51,6 +51,7 @@ export const useDeterministicId = (
   const { id, setDefaultId } = useId(idOverride, prefix);
 
   useEffect(() => {
+    /* v8 ignore start - Fallback for React < 18, can't test with React 19 */
     if (id != null) return;
     // Fallback to this default id when possible.
     // Use the incrementing value for client-side rendering only.
@@ -58,7 +59,10 @@ export const useDeterministicId = (
     __GLOBAL_ID__ += 1;
 
     setDefaultId(prefixStr(String(__GLOBAL_ID__), prefix));
+    /* v8 ignore stop */
   }, [id, prefix, setDefaultId]);
 
+  /* v8 ignore start - Fallback for React < 18 when id is null */
   return id ?? "";
+  /* v8 ignore stop */
 };

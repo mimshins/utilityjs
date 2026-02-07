@@ -42,5 +42,7 @@ import { useEffect, useLayoutEffect } from "react";
  * }
  * ```
  */
+/* v8 ignore start - useEffect branch only used in SSR (no window) */
 export const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
+/* v8 ignore stop */

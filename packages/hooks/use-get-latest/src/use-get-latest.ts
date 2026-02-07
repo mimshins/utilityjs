@@ -4,8 +4,10 @@ import { useEffect, useLayoutEffect, useRef, type RefObject } from "react";
  * Isomorphic layout effect that uses useLayoutEffect on the client
  * and useEffect on the server to avoid SSR warnings.
  */
+/* v8 ignore start - SSR branch can't be tested in jsdom */
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
+/* v8 ignore stop */
 
 /**
  * A React hook that stores and updates a ref with the most recent value.

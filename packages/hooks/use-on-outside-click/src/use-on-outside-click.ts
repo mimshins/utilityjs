@@ -52,6 +52,7 @@ export const useOnOutsideClick = <T extends HTMLElement = HTMLElement>(
   const cachedCallback = useGetLatest(callback);
 
   useEventListener({
+    /* v8 ignore next - SSR branch, window always defined in test env */
     target: typeof window === "undefined" ? null : document,
     eventType: "click",
     handler: event => {

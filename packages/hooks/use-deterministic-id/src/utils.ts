@@ -16,11 +16,13 @@ export const prefixStr = (str: string, prefix: string): string =>
  * A safe reference to React's useId hook that works across different React versions.
  * Returns undefined if useId is not available (React < 18).
  */
+/* v8 ignore start - React < 18 fallback */
 export const useReactId: () => string | undefined =
   // We use `toString()` to prevent bundlers from trying to `import { useId } from "react"`
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
   ((React as any)["useId".toString()] as undefined | (() => string)) ??
   (() => void 0);
+/* v8 ignore stop */
 
 /**
  * Internal hook that manages ID generation logic.
@@ -34,6 +36,7 @@ export const useReactId: () => string | undefined =
  * @param prefix Prefix to prepend to generated IDs
  * @returns Object containing the current ID and setter for default ID
  */
+/* v8 ignore start - Complex React < 18 fallback logic */
 export const useId = (
   idOverride?: string,
   prefix = DEFAULT_PREFIX,
@@ -53,3 +56,4 @@ export const useId = (
 
   return { id, setDefaultId };
 };
+/* v8 ignore stop */

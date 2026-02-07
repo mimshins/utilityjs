@@ -26,7 +26,7 @@ export type RemoveByValue<T> = (value: T) => void;
 
 /** Function type for filtering the array based on a predicate */
 export type Filter<T> = (
-  predicate: (value: T, index: number, array: T[]) => value is T,
+  predicate: (value: T, index: number, array: T[]) => boolean,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   thisArg?: any,
 ) => void;

@@ -140,13 +140,11 @@ export const makeInsertItem =
 export const makeMoveItem =
   <T>(array: T[], setValues: SetArrayValues<T>): MoveItem =>
   (fromIndex: number, toIndex: number) => {
-    if (fromIndex > toIndex) {
-      setValues([
-        ...array.slice(0, toIndex),
-        array[fromIndex],
-        ...array.slice(toIndex + 1, fromIndex),
-        array[toIndex],
-        ...array.slice(fromIndex + 1),
-      ] as T[]);
-    } else makeMoveItem(array, setValues)(toIndex, fromIndex);
+    if (fromIndex === toIndex) return;
+
+    const newArray = [...array];
+    const [movedItem] = newArray.splice(fromIndex, 1);
+
+    newArray.splice(toIndex, 0, movedItem!);
+    setValues(newArray);
   };
