@@ -1,3 +1,5 @@
+import { useEffect, useLayoutEffect } from "react";
+
 /**
  * Adds a CSS class to an HTML element if it doesn't already exist.
  *
@@ -19,3 +21,8 @@ export const addClassName = (element: HTMLElement, className: string) => {
 export const removeClassName = (element: HTMLElement, className: string) => {
   element.classList.remove(className);
 };
+
+/* v8 ignore start - SSR branch */
+export const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+/* v8 ignore stop */

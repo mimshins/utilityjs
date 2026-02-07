@@ -1,35 +1,34 @@
 import { useEventListener } from "@utilityjs/use-event-listener";
 import { useGetLatest } from "@utilityjs/use-get-latest";
-import type { RefObject } from "react";
+import { useRegisterNodeRef } from "@utilityjs/use-register-node-ref";
+import { useRef } from "react";
 
 /**
  * A React hook that invokes a callback when user clicks outside of the target element.
  *
  * This hook is commonly used for implementing dropdown menus, modals, tooltips,
  * and other UI components that should close when the user clicks outside of them.
- * It supports both ref objects and direct element references, and includes an
- * optional condition function for additional control over when the callback is triggered.
+ * It returns a ref callback that should be attached to the target element, and includes
+ * an optional condition function for additional control over when the callback is triggered.
  *
  * @template T The type of HTML element (extends HTMLElement)
- * @param target - The target element, ref object, or null
  * @param callback - Function to call when clicking outside the target
- * @param extendCondition - Optional condition function for additional filtering
+ * @param shouldTrigger - Optional condition function for additional filtering
+ * @returns A ref callback to attach to the target element
  *
  * @example
  * ```tsx
  * import { useOnOutsideClick } from "@utilityjs/use-on-outside-click";
- * import { useRef, useState } from "react";
+ * import { useState } from "react";
  *
  * function Dropdown() {
  *   const [isOpen, setIsOpen] = useState(false);
- *   const dropdownRef = useRef<HTMLDivElement>(null);
- *
- *   useOnOutsideClick(dropdownRef, () => {
+ *   const ref = useOnOutsideClick(() => {
  *     setIsOpen(false);
  *   });
  *
  *   return (
- *     <div ref={dropdownRef}>
+ *     <div ref={ref}>
  *       <button onClick={() => setIsOpen(!isOpen)}>
  *         Toggle Dropdown
  *       </button>
@@ -45,27 +44,32 @@ import type { RefObject } from "react";
  * ```
  */
 export const useOnOutsideClick = <T extends HTMLElement = HTMLElement>(
-  target: RefObject<T> | T | null,
   callback: (event: MouseEvent) => void,
-  extendCondition: (event: MouseEvent) => boolean = () => true,
-): void => {
+  shouldTrigger: (event: MouseEvent) => boolean = () => true,
+): ((node: T | null) => void) => {
+  const elementRef = useRef<T | null>(null);
   const cachedCallback = useGetLatest(callback);
+  const cachedShouldTrigger = useGetLatest(shouldTrigger);
 
   useEventListener({
     /* v8 ignore next - SSR branch, window always defined in test env */
     target: typeof window === "undefined" ? null : document,
     eventType: "click",
     handler: event => {
-      const element = target && "current" in target ? target.current : target;
+      const element = elementRef.current;
 
       if (
         element !== null &&
         element !== event.target &&
         !element.contains(event.target as Node) &&
-        extendCondition(event)
+        cachedShouldTrigger.current(event)
       ) {
         cachedCallback.current(event);
       }
     },
   });
+
+  return useRegisterNodeRef<T>(node => {
+    elementRef.current = node;
+  }, []);
 };

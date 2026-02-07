@@ -8,9 +8,9 @@ type ObserverInstance = {
   nodes: HTMLElement[];
 };
 
-let rootId = 0;
-const RootIds = new WeakMap<Element | Document, string>();
-const observers = new Map<string, ObserverInstance>();
+let __ROOT_ID__ = 0;
+const __ROOT_IDS__ = new WeakMap<Element | Document, string>();
+const __OBSERVERS__ = new Map<string, ObserverInstance>();
 
 /**
  * Cross-platform requestIdleCallback implementation.
@@ -51,15 +51,24 @@ export const cancelIdleCallback =
  *
  * @returns The IntersectionObserver constructor or null if not available
  */
-export const getObserver = () => {
-  if (typeof global !== "undefined" && global.IntersectionObserver)
+export const getObserver = (): {
+  new (
+    callback: IntersectionObserverCallback,
+    options?: IntersectionObserverInit,
+  ): IntersectionObserver;
+  prototype: IntersectionObserver;
+} | null => {
+  if (typeof global !== "undefined" && global.IntersectionObserver) {
     return global.IntersectionObserver;
+  }
 
-  if (typeof globalThis !== "undefined" && globalThis.IntersectionObserver)
+  if (typeof globalThis !== "undefined" && globalThis.IntersectionObserver) {
     return globalThis.IntersectionObserver;
+  }
 
-  if (typeof window !== "undefined" && window.IntersectionObserver)
+  if (typeof window !== "undefined" && window.IntersectionObserver) {
     return window.IntersectionObserver;
+  }
 
   if (typeof IntersectionObserver !== "undefined") return IntersectionObserver;
 
@@ -74,12 +83,12 @@ export const getObserver = () => {
  */
 const getRootId = (rootOption: IntersectionObserverInit["root"]) => {
   if (!rootOption) return "0";
-  if (RootIds.has(rootOption)) return RootIds.get(rootOption)!;
+  if (__ROOT_IDS__.has(rootOption)) return __ROOT_IDS__.get(rootOption)!;
 
-  rootId += 1;
-  RootIds.set(rootOption, `${rootId}`);
+  __ROOT_ID__ += 1;
+  __ROOT_IDS__.set(rootOption, `${__ROOT_ID__}`);
 
-  return `${rootId}`;
+  return `${__ROOT_ID__}`;
 };
 
 /**
@@ -138,7 +147,7 @@ const unobserve = <T extends HTMLElement>(
   // Destroy observer when there's nothing left to watch
   if (instance.nodes.length === 0) {
     instance.observer.disconnect();
-    observers.delete(instance.id);
+    __OBSERVERS__.delete(instance.id);
   }
 };
 
@@ -162,7 +171,7 @@ export const createObserver = <T extends HTMLElement>(
   if (!Observer) return null;
 
   const id = createId(options);
-  const instance = observers.get(id);
+  const instance = __OBSERVERS__.get(id);
 
   if (instance) {
     return {
@@ -171,7 +180,11 @@ export const createObserver = <T extends HTMLElement>(
     };
   }
 
-  const thresholds: { current: number[] | readonly number[] } = { current: [] };
+  const thresholds: {
+    current: number[] | readonly number[];
+  } = {
+    current: [],
+  };
 
   const observer = new Observer(entries => {
     entries.forEach(entry => {
@@ -189,9 +202,13 @@ export const createObserver = <T extends HTMLElement>(
       ? options.threshold
       : [options.threshold!]);
 
-  const newInstance: ObserverInstance = { id, observer, nodes: [] };
+  const newInstance: ObserverInstance = {
+    id,
+    observer,
+    nodes: [],
+  };
 
-  observers.set(id, newInstance);
+  __OBSERVERS__.set(id, newInstance);
 
   return {
     observe: () => void observe(node, newInstance),

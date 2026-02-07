@@ -11,7 +11,7 @@
     "verbatimModuleSyntax": true,
     "allowJs": false,
     "checkJs": false,
-    "jsx": "react-jsx",
+    "jsx": "react",
 
     "noEmit": true,
     "esModuleInterop": true,

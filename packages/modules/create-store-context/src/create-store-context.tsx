@@ -34,7 +34,7 @@ const __STORE_SENTINEL__ = {};
  * }
  * ```
  */
-const createStoreContext = <S,>(
+export const createStoreContext = <S,>(
   stateFactory: StateFactory<S>,
 ): {
   StoreProvider: (props: { children: React.ReactNode }) => React.JSX.Element;
@@ -129,5 +129,3 @@ const createStoreContext = <S,>(
 
   return { useStore, StoreProvider };
 };
-
-export default createStoreContext;
