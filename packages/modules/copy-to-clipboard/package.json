@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/copy-to-clipboard",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "An utility module to help with copying text to clipboard.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/modules/copy-to-clipboard",

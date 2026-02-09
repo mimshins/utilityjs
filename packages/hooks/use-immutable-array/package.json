@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-immutable-array",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A React hook that creates an array with immutable operations.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/hooks/use-immutable-array",

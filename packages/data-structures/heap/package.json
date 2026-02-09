@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/heap",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "An implementation of abstract Heap class.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/data-structure/heap",

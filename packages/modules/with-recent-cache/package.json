@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/with-recent-cache",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Memoizes a function by caching only the most recent call result.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/modules/with-recent-cache",

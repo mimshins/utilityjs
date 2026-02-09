@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/create-store-context",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "A React store-context that manages states of a tree where unnecessary re-renders have been omitted thanks to the Pub/Sub design pattern.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/modules/create-store-context",

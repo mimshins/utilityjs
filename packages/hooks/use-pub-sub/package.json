@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-pub-sub",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A React hook that provides the Publish/Subscribe pattern.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/hooks/use-pub-sub",

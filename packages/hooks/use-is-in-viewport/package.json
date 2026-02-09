@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-is-in-viewport",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A React hook that tells you when an element enters or leaves the viewport.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/hooks/use-is-in-viewport",

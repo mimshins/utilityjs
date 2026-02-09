@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/comparator",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A utility class that compares its comparable arguments.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/data-structures/comparator",

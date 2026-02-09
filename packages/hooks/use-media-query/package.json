@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-media-query",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A React hook that helps detect whether media queries individually match.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/hooks/use-media-query",

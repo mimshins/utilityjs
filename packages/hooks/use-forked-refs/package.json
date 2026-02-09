@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-forked-refs",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "A React hook for forking/merging multiple refs into a single one.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/hooks/use-forked-refs",

@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-init-once",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A React hook that holds a lazy-initialized value for a component's lifecycle.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/hooks/use-init-once",

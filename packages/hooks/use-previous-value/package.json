@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-previous-value",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A React hook that returns a value from the previous render.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/hooks/use-previous-value",
