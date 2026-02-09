@@ -1,0 +1,49 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
+  "changelog": [
+    "@changesets/changelog-github",
+    {
+      "repo": "mimshins/utilityjs"
+    }
+  ],
+  "commit": false,
+  "fixed": [],
+  "linked": [
+    [
+      "@utilityjs/comparator",
+      "@utilityjs/heap",
+      "@utilityjs/min-heap",
+      "@utilityjs/max-heap",
+      "@utilityjs/priority-queue",
+      "@utilityjs/linked-list"
+    ],
+    [
+      "@utilityjs/use-get-latest",
+      "@utilityjs/use-event-listener",
+      "@utilityjs/use-register-node-ref",
+      "@utilityjs/use-on-change",
+      "@utilityjs/use-long-press",
+      "@utilityjs/use-on-outside-click",
+      "@utilityjs/use-immutable-array",
+      "@utilityjs/use-hover",
+      "@utilityjs/use-is-in-viewport"
+    ],
+    [
+      "@utilityjs/use-is-server-handoff-complete",
+      "@utilityjs/use-persisted-state",
+      "@utilityjs/use-dark-mode",
+      "@utilityjs/use-media-query"
+    ],
+    ["@utilityjs/graph", "@utilityjs/queue", "@utilityjs/stack"]
+  ],
+  "access": "public",
+  "baseBranch": "main",
+  "bumpVersionsWithWorkspaceProtocolOnly": true,
+  "prettier": false,
+  "updateInternalDependencies": "patch",
+  "ignore": [],
+  "privatePackages": {
+    "tag": false,
+    "version": false
+  }
+}
