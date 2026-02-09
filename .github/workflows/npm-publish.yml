@@ -1,0 +1,53 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: "🚀 Release"
+    runs-on: ubuntu-latest
+    # Don't run on forks. We can and should only release from the main repo.
+    if: github.repository == 'mimshins/utilityjs'
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - name: "☁️ Checkout repository"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔧 Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
+      - name: 🔧 Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: "pnpm"
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - name: "🔎 Create Release PR or Publish Packages"
+        # The id of this step must not be "changesets", or else the step will be invisible
+        # in the list of steps from the GitHub UI when the action runs (though it will still
+        # run, and its output will appear in the raw logs). Unknown why this is the case,
+        # see https://github.com/changesets/action/issues/149 for discussion.
+        id: cs
+        uses: changesets/action@v1
+        with:
+          title: "chore: bump versions"
+          commit: "chore: bump versions"
+          publish: "pnpm release"
+          version: "pnpm changesets:apply"
+          createGithubReleases: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
