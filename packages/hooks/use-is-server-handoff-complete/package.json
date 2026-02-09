@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-is-server-handoff-complete",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A React hook that returns `true` if the SSR handoff completes.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/hooks/use-is-server-handoff-complete",

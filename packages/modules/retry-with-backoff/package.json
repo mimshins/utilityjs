@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/retry-with-backoff",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Executes an asynchronous function with exponential backoff retry logic, automatically retrying on failure with increasing delays between attempts.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/modules/retry-with-backoff",

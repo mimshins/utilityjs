@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-on-outside-click",
-  "version": "1.0.5",
+  "version": "2.0.0",
   "description": "A React hook that invokes a callback when user clicks outside of the target element.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/hooks/use-on-outside-click",

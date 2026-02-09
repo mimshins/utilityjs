@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/max-heap",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "An implementation of MaxHeap data structure.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/data-structures/max-heap",

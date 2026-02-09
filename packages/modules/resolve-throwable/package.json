@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/resolve-throwable",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Executes a given asynchronous function and returns its result in a structured object, converting potential thrown errors into a safe `error` property.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/modules/resolve-throwable",

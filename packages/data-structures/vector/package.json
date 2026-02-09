@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/vector",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "An implementation of a 2D/3D Vector.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/data-structures/vector",

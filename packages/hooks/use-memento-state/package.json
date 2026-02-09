@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/use-memento-state",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A React hook that keeps the track of the history of the state changes.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/hooks/use-memento-state",
