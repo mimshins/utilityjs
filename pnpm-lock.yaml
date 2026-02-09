@@ -326,6 +326,9 @@ importers:
       '@utilityjs/use-get-latest':
         specifier: workspace:*
         version: link:../use-get-latest
+      '@utilityjs/use-register-node-ref':
+        specifier: workspace:*
+        version: link:../use-register-node-ref
       react:
         specifier: '>=16.8'
         version: 19.2.4
@@ -387,6 +390,8 @@ importers:
         version: 19.2.4
 
   packages/modules/resolve-throwable: {}
+
+  packages/modules/retry-with-backoff: {}
 
   packages/modules/with-recent-cache: {}
 
