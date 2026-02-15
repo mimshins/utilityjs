@@ -1,6 +1,6 @@
 {
   "name": "@utilityjs/mutex",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A Mutex (Mutual Exclusion) class to ensure a task runs exclusively.",
   "license": "MIT",
   "homepage": "https://github.com/mimshins/utilityjs/tree/main/packages/modules/mutex",
